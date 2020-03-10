@@ -6,6 +6,7 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import tables.CustomEvent;
 
@@ -17,7 +18,7 @@ public class EventBean implements Serializable{
     private List<CustomEvent> eventList;
     
     public EventBean(){
-        this.eventList=new List<CustomEvent>();
+        this.eventList=new ArrayList<CustomEvent>();
     }
     public EventBean(List<CustomEvent> eventlist){
         this.eventList= eventlist;

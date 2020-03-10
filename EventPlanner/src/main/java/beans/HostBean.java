@@ -6,7 +6,9 @@
 package beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import tables.CustomHost;
 
 /**
  *
@@ -17,7 +19,7 @@ public class HostBean implements Serializable {
     private List<CustomHost> hostlist;
     
     public HostBean(){
-        this.hostlist=new List<CustomHost>();
+        this.hostlist=new ArrayList<CustomHost>();
     }
     public HostBean(List<CustomHost> hlist){
         this.hostlist= hlist;
