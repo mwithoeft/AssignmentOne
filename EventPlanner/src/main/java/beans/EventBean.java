@@ -37,4 +37,11 @@ public class EventBean implements Serializable{
     public boolean containsEvent(CustomEvent e){
         return this.eventList.contains(e);
     }
+    public CustomEvent getEvent(int id){
+        for(CustomHost host : this.eventList){
+          if(host.getId()==id){
+              return host;
+          }
+        }
+    }
 }
