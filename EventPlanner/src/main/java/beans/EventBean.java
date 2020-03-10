@@ -40,10 +40,11 @@ public class EventBean implements Serializable{
         return this.eventList.contains(e);
     }
     public CustomEvent getEvent(int id){
-        for(CustomHost host : this.eventList){
-          if(host.getId()==id){
-              return host;
+        for(CustomEvent event : this.eventList){
+          if(event.getId()==id){
+              return event;
           }
         }
+        return null;
     }
 }

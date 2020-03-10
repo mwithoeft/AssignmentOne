@@ -8,6 +8,7 @@ package beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import tables.CustomEvent;
 import tables.CustomHost;
 
 /**
@@ -39,5 +40,13 @@ public class HostBean implements Serializable {
     }
     public boolean containsHost(CustomHost h){
         return this.hostlist.contains(h);
+    }
+        public CustomHost getHost(int id){
+        for(CustomHost host : this.hostlist){
+          if(host.getId()==id){
+              return host;
+          }
+        }
+        return null;
     }
 }

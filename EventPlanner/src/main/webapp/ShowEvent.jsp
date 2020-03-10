@@ -13,7 +13,7 @@
     </head>
     <body>
            <main>
-             <jsp:useBean id="singlevent" class="CustomEvent" scope="request"/>
+             <jsp:useBean id="singlevent" class="tables.CustomHost" scope="request"/>
               <c:choose>
                 <c:when test="${not empty singleevent}">
                         <h1>${singleevent.name}</h1>
