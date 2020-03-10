@@ -7,6 +7,7 @@ package beans;
 
 import java.io.Serializable;
 import java.util.List;
+import tables.CustomEvent;
 
 /**
  *
@@ -31,7 +32,7 @@ public class EventBean implements Serializable{
     public void addEvent(CustomEvent e){
         this.eventList.add(e);
     }
-    public void removeEvent(CustomEventost e){
+    public void removeEvent(CustomEvent e){
         this.eventList.remove(e);
     }
     public boolean containsEvent(CustomEvent e){
