@@ -34,7 +34,7 @@ public class CustomHost implements Serializable {
     private int eventsHosted;
     
     @OneToMany(mappedBy = "eventHost")
-    private Set<Event> hostedEvents;
+    private Set<CustomEvent> hostedEvents;
     
     
     public CustomHost(){

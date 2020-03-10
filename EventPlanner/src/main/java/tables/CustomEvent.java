@@ -51,7 +51,7 @@ public class CustomEvent implements Serializable {
     
     @ManyToOne
     @JoinColumn(name ="host")
-    private Host eventHost;
+    private CustomHost eventHost;
     
     
     public CustomEvent(){
