@@ -51,7 +51,8 @@
                 <section>
                     <a class="greenBtn" href='CreateEvent'>Create new event</a>
                 </section>
-            
+       
+
         </main>
         
     </body>
