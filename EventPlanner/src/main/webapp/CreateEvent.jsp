@@ -4,7 +4,14 @@
     Author     : Andreas Bitzan
 --%>
 
+<%@page import="beans.HostBean"%>
+<%@page import="java.util.List"%>
+<%@page import="tables.CustomHost"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<link href="./style.css" rel="stylesheet" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,10 +29,6 @@
             <input type="text" name="eventname"/>
          </p>
          <p>
-            Last Name:
-            <input type="text" name="lastname"/>
-         </p>
-         <p>
              <label for="shortdesc">Short description</label>
              <input type="text" naeme="shortdesc" />
          </p>
@@ -41,21 +44,33 @@
          <p>
              <label for="eventhost">Host</label>
              <select id="eventhost" name="eventhost" >
-                <jsp:useBean id="hosts" class="beans.HostBean"/>
+                 <jsp:useBean id="hostbean" class="beans.HostBean" scope="session"/>
+                
                 <c:choose>
-                <c:when test="${not empty hosts}">
-                     <c:forEach items="${hosts}" var="host">
-                         <option value="${host}">${host}</option>
+                <c:when test="!${hostbean.isEmpty()}">
+                     <c:forEach items="${hostbean}" var="host">
+                         <option value="${hostbean}">${hostbean}</option>
                         </c:forEach>
-                </when>
+                </c:when>
                 <c:otherwise>
                     <option value="nohost">No host defined yet</option>
                 </c:otherwise>
                 </c:choose>
              </select>
+                <a class="block" href="<%= response.encodeURL("CreateHost.jsp") %>">Add new Host</a>
          </p>
-         <input type="submit"/>
+         <input type="submit" value="Create" class="greenBtn submitBtn"/>
+         <a class="redBtn greenBtn" href="<%= response.encodeURL("index.jsp") %>">Cancel</a>
       </form>
+        
+          ${requestScope.LOL}
+          ${requestScope.LOL.getHostList()}
+           <c:forEach items="    ${requestScope.LOL.getHostList()}" var="host">
+                         <h1>${host.toString()}</h1>
+                        </c:forEach>
+          Session:
+          ${sessionScope.LOL}
+      
         </main>
     </body>
 </html>

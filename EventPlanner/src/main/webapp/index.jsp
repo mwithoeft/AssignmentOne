@@ -8,6 +8,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<link href="./style.css" rel="stylesheet" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,13 +22,13 @@
         </header>
         <main>
             <h2>Events happening this week</h2>
-            <section>
-                <jsp:useBean id="events" class="beans.EventBean"/>
+            <section class="eventSection">
+                <jsp:useBean id="events" class="beans.EventBean" scope="session"/>
                 <c:choose>
-                <c:when test="${not empty events}">
+                <c:when test="!${events.isEmpty()}">
                     
                     <ul>
-                        <c:forEach items="${events}" var="tmpEvent">
+                        <c:forEach items="${events.getEventList()}" var="tmpEvent">
                             <li>
                                 <a href="<%= response.encodeURL("ShowEvent.jsp") %>">
                                 <c:out value="${tmpEvent}"/>
@@ -36,15 +37,19 @@
                             </li>
                         </c:forEach>
                     </ul>
+          
+   
                 </c:when>
                 <c:otherwise>
-                    <div><h3>No events registered so far.</h3></div>
+                    <div><h3>No events registered so far...</h3>
+        
+                    </div>
                 </c:otherwise>
                 </c:choose>
 
             </section>
                 <section>
-                    <a href='<%= response.encodeURL("CreateEvent.jsp") %>'>Create new event</a>
+                    <a class="greenBtn" href='CreateEvent'>Create new event</a>
                 </section>
             
         </main>

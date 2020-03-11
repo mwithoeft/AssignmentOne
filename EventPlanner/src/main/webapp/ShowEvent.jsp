@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<link href="./style.css" rel="stylesheet" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,7 +21,7 @@
               <c:choose>
                 <c:when test="${not empty singleevent}">
                         <h1>${singleevent.name}</h1>
-                </when>
+                </c:when>
                 <c:otherwise>
                     <p>The correct bean was not found...</p>
                 </c:otherwise>

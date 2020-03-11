@@ -1,0 +1,64 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11.03.2020, 12:34:22
+    Author     : Andreas Bitzan
+*/
+
+body{
+    font-family: Arial, sans-serif;
+    background-color: #4f1852;
+    box-sizing: border-box;
+}
+h1{
+    color: white;
+    margin: 2rem;
+}
+header p{
+    margin: 0 2rem;
+    color: white;
+}
+main{
+    margin: 2rem;
+    background-color: #efefef;
+    padding: 2rem 0.5rem;
+}
+
+.eventSection{
+    padding: 1rem 0; 
+}
+
+label{
+    display: block;
+}
+
+.greenBtn{
+    padding:0.2rem 1rem;
+    border-radius: 5px;
+    background-color: green;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+.greenBtn:hover{
+    text-decoration: underline;
+}
+
+.blueBtn{
+    background-color: #319fac;
+}
+.redBtn{
+    background-color: red;
+}
+.block{
+    display: block;
+    margin: 0.5rem 0;
+}
+.submitBtn{
+    font-size: 100%;
+    border: none;
+    font-family: inherit;
+}
