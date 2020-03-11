@@ -20,7 +20,7 @@
         <p>by Andreas Bitzan and Moritz Withöft</p>
         </header>
         <main>
-            <h2>Events happening this week</h2>
+            <%-- <h2>Events happening this week</h2>
             <section>
                 <jsp:useBean id="events" class="beans.EventBean"/>
                 <c:choose>
@@ -45,8 +45,8 @@
             </section>
                 <section>
                     <a href='<%= response.encodeURL("CreateEvent.jsp") %>'>Create new event</a>
-                </section>
-            
+                </section> --%>
+            Test
         </main>
         
     </body>
