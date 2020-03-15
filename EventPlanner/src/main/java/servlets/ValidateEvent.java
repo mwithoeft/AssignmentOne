@@ -18,7 +18,6 @@ import javax.servlet.http.HttpSession;
 import tables.CustomEvent;
 import tables.CustomEventDB;
 import tables.CustomHost;
-import tables.CustomHostDB;
 
 /**
  *
