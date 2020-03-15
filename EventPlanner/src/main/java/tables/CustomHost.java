@@ -2,6 +2,7 @@ package tables;
 
 import java.io.Serializable;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,10 @@ public class CustomHost implements Serializable {
     @Column
     private int eventsHosted;
     
-    @OneToMany(mappedBy = "eventHost")
+    @OneToMany(
+            mappedBy = "eventHost",
+            cascade = CascadeType.ALL
+    )
     private Set<CustomEvent> hostedEvents;
     
     public CustomHost(){
