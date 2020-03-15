@@ -12,7 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,8 +32,6 @@ import tables.CustomHostDB;
 @WebServlet(name = "ValidateEvent", urlPatterns = {"/ValidateEvent"})
 public class ValidateEvent extends HttpServlet {
 
-    @Inject
-    private CustomHostDB hostDB;
     @Inject 
     private CustomEventDB eventDB;
     
@@ -50,6 +47,7 @@ public class ValidateEvent extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession();
         HostBean hostBean = (HostBean) session.getAttribute("hosts");

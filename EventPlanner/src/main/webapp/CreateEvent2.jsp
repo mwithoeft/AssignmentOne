@@ -61,7 +61,7 @@
                 </c:otherwise>
                 </c:choose>
              </select>
-                <a class="block" href="<%= response.encodeURL("CreateHost.jsp") %>">Add new Host</a>
+                <a class="block" href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
          </p>
          <input type="submit" value="Create" class="greenBtn submitBtn"/>
          <a class="redBtn greenBtn" href="<%= response.encodeURL("index.jsp") %>">Cancel</a>

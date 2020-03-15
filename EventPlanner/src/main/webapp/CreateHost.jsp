@@ -20,21 +20,21 @@
         <h1>Create New Host</h1>
         </header>
           <main>
-         <form action="createHost" method="POST">
+         <form action="ValidateHost" method="POST">
          <p>
              <label for="firstname">First name of host</label>
             <input type="text" name="firstname"/>
          </p>
          <p>
              <label for="lastname">Last name of host</label>
-             <input type="text" naeme="lastname" />
+             <input type="text" name="lastname" />
          </p>
          <p>
             <label for="location">Location of Host</label>
-            <input type="text" naeme="location" />
+            <input type="text" name="location" />
          </p>
          <input type="submit" value="Create" class="greenBtn submitBtn"/>
-         <a class="redBtn greenBtn" href="<%= response.encodeURL("CreateEvent.jsp") %>">Cancel</a>
+         <a class="redBtn greenBtn" href="<%= response.encodeURL("CreateEvent") %>">Cancel</a>
       </form>
         </main>
     </body>
