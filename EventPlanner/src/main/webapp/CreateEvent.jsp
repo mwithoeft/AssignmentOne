@@ -23,7 +23,7 @@
         <h1>Create New Event</h1>
         </header>
           <main>
-         <form action="CreateEvent" method="POST">
+         <form action="ValidateEvent" method="POST">
          <p>
              <label for="eventname">Name of event</label>
             <input type="text" name="eventname"/>

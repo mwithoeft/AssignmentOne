@@ -30,7 +30,7 @@ import tables.CustomHostDB;
  *
  * @author hallo
  */
-@WebServlet(name = "CreateEvent", urlPatterns = {"/CreateEvent"})
+@WebServlet(name = "ValidateEvent", urlPatterns = {"/ValidateEvent"})
 public class ValidateEvent extends HttpServlet {
 
     @Inject
@@ -54,24 +54,25 @@ public class ValidateEvent extends HttpServlet {
         HttpSession session = request.getSession();
         HostBean hostBean = (HostBean) session.getAttribute("hosts");
         
-        
         CustomEvent event = new CustomEvent();
         boolean allFilled = checkParameters(event, request, hostBean);
         
         
         if (allFilled) {
             eventDB.create(event);
+            RequestDispatcher dispatcher = getServletContext().
+                    getRequestDispatcher("/Success.jsp");
+            dispatcher.forward(request, response);
         } else {
             EventBean eBean = new EventBean();
             eBean.addEvent(event);
-            
-            
+            request.setAttribute("event", eBean);
+            RequestDispatcher dispatcher = getServletContext().
+                    getRequestDispatcher("/CreateEvent");
+            dispatcher.forward(request, response);
         }
-        
-        
-        /*RequestDispatcher dispatcher = getServletContext().
-            getRequestDispatcher("/CustomerDetails.jsp");
-         dispatcher.forward(request, response);*/
+
+
     }
     
     private boolean checkParameters(CustomEvent event, HttpServletRequest request, HostBean hostBean) {
@@ -163,7 +164,7 @@ public class ValidateEvent extends HttpServlet {
             }
         }
         
-        if (isNotFilled(hostId)) {
+        if (isNotFilled(hostId) || hostId.equals("nohost")) {
             allFilled = false;
         } else {
             CustomHost host = hostBean.getHost(Integer.parseInt(hostId));
@@ -181,7 +182,6 @@ public class ValidateEvent extends HttpServlet {
     }
 
 
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
