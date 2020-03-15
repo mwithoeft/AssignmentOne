@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "hosts")
 @NamedQueries({
-    @NamedQuery(name="CustomHost.findAll", query="SELECT a FROM CustomHost a")
+    @NamedQuery(name="CustomHost.findAll", query="SELECT a FROM CustomHost a"),
 })
 public class CustomHost implements Serializable {
 

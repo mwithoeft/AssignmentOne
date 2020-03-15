@@ -15,22 +15,13 @@
         <title>JSP Page</title>
     </head>
     <body>
-         <header>
-        <h1>Event Planner</h1>
-        <p>by Andreas Bitzan and Moritz Withöft</p>
+        <header>
+            <h1>Event Planner</h1>
+            <p>by Andreas Bitzan and Moritz Withöft</p>
         </header>
-         <main class="mainContainer">
-              <c:choose>
-                  <c:when test="${not empty requestScope.custommessage}">
-                       <p>${requestScope.custommessage}</p>
-                    
-                </c:when>
-                <c:otherwise>
-                    <p>The correct bean was not found...</p>
-                </c:otherwise>
-              </c:choose>
-                    
-                    <a href="/EventPlanner/">Go back</a>
+        <main class="mainContainer">
+            <p>That was a success!</p>
+            <a href="/EventPlanner/">Go back</a>
         </main>
     </body>
 </html>
