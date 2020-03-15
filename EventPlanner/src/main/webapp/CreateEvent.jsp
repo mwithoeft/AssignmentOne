@@ -23,23 +23,35 @@
         <h1>Create New Event</h1>
         </header>
           <main>
-         <form action="insertevent" method="POST">
+         <form action="CheckEvent" method="POST">
          <p>
              <label for="eventname">Name of event</label>
             <input type="text" name="eventname"/>
          </p>
          <p>
              <label for="shortdesc">Short description</label>
-             <input type="text" naeme="shortdesc" />
+             <input type="text" name="shortdesc" />
          </p>
          <p>
             <label for="longdesc">Long description</label>
-            <textarea id="longdesc" rows="4" cols="50" name="longsdesc">
+            <textarea id="longdesc" rows="4" cols="50" name="longdesc">
             </textarea>
          </p>
          <p>
-             <label for="eventdate">Date</label>
-             <input type="date" name="eventdate" />
+             <label for="startdate">Start Date</label>
+             <input type="date" name="startdate" />
+         </p>
+         <p>
+             <label for="starttime">Start Time</label>
+             <input type="time" name="starttime" />
+         </p>
+         <p>
+             <label for="enddate">End Date</label>
+             <input type="date" name="enddate" />
+         </p>
+         <p>
+             <label for="endtime">End Time</label>
+             <input type="time" name="endtime" />
          </p>
          <p>
              <label for="eventhost">Host</label>

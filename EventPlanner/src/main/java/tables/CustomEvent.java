@@ -1,6 +1,7 @@
 package tables;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -140,6 +141,18 @@ public class CustomEvent implements Serializable {
 
     public void setEventHost(CustomHost eventHost) {
         this.eventHost = eventHost;
+    }
+    
+    @Override
+    public String toString(){
+        String eventString = String.format("\nEvent: %s\r\n", this.eventname);
+        eventString += String.format("%s\r\n", this.shortDescription);
+        eventString += String.format("Start date: %tD\n", this.startDate);
+        eventString += String.format("Start time: %s\n", new SimpleDateFormat("HH:mm").format(startTime));
+        eventString += String.format("End date: %tD\n", this.endDate);
+        eventString += String.format("End time: %s\n", new SimpleDateFormat("HH:mm").format(endTime));
+        
+        return eventString;
     }
     
 }
