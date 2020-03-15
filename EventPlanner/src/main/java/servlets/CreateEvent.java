@@ -37,11 +37,7 @@ public class CreateEvent extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        System.out.println("DIESES SERVLET WURDE GETRIGGERED!");
-        HttpSession session=request.getSession();
-        System.out.println(session);
-        HostBean host=(HostBean)session.getAttribute("LOL");
-        System.out.println(host);
+        HttpSession session=request.getSession(true);
         HostBean hostbean=new HostBean();
         CustomHost h= new CustomHost();
         h.setFirstname("Andreas");

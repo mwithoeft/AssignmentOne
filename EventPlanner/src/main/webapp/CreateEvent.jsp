@@ -11,7 +11,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link href="./style.css" rel="stylesheet" />
+<style><%@include file="/style.css"%></style>
 <!DOCTYPE html>
 <html>
     <head>
