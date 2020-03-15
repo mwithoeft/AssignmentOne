@@ -6,8 +6,6 @@
 package servlets;
 
 import beans.EventBean;
-import beans.HostBean;
-import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -18,14 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import tables.CustomEvent;
-import tables.CustomHost;
 
 /**
  *
  * @author Andreas Bitzan
  */
-@WebServlet(name = "CreateEvent", urlPatterns = {"/CreateEvent"})
-public class CreateEvent extends HttpServlet {
+@WebServlet(name = "ShowEvent", urlPatterns = {"/ShowEvent"})
+public class ShowEvent extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,23 +36,22 @@ public class CreateEvent extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session=request.getSession();
-        String redirectURL="/CreateEvent.jsp";
+        String id=request.getParameter("id");
+        int eventID=Integer.parseInt(id);
         try{
-            int eventID=Integer.parseInt(request.getParameter("id"));
-            EventBean allEvents = (EventBean)session.getAttribute("events");
-            if(!allEvents.isEmpty()){
+        HttpSession session= request.getSession();
+        EventBean allEvents = (EventBean)session.getAttribute("events");
+        if(!allEvents.isEmpty()){
             CustomEvent currentEvent=allEvents.getEvent(eventID);
             request.setAttribute("currentevent", currentEvent);
         }
-            redirectURL="/CreateEvent2.jsp";
-            
-        }catch (Exception ex){
+        
+        }
+        catch (Exception ex){
             
         }
-
-                 RequestDispatcher dispatcher = getServletContext().
-         getRequestDispatcher(redirectURL);
+        RequestDispatcher dispatcher = getServletContext().
+            getRequestDispatcher("/ShowEvent.jsp");
          dispatcher.forward(request, response);
     }
 
@@ -71,6 +67,7 @@ public class CreateEvent extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.getWriter().write(request.getParameter("id"));
         processRequest(request, response);
     }
 

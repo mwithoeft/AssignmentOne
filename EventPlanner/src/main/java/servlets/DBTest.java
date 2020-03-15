@@ -47,7 +47,7 @@ public class DBTest extends HttpServlet {
         
         
         
-        fillExamples();
+      
         
         
         try (PrintWriter out = response.getWriter()) {

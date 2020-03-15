@@ -5,14 +5,21 @@
  */
 package servlets;
 
+import beans.EventBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import tables.CustomEvent;
+import tables.CustomEventDB;
+import tables.CustomHostDB;
 
 /**
  *
@@ -20,7 +27,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "IndexServlet", urlPatterns = {"/"})
 public class IndexServlet extends HttpServlet {
-
+    @Inject
+    private CustomEventDB eventDB;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -33,7 +42,16 @@ public class IndexServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        List<CustomEvent>eventList=eventDB.findAll();
+        EventBean eventbean=new EventBean();
+        try{
+            HttpSession session= request.getSession(true);
+            eventbean.setHostList(eventList);
+            session.setAttribute("events", eventbean);
+        }
+        catch(Exception ex){
+           
+        }
         RequestDispatcher dispatcher = getServletContext().
             getRequestDispatcher("/index.jsp");
          dispatcher.forward(request, response);

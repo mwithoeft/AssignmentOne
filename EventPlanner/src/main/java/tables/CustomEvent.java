@@ -141,5 +141,12 @@ public class CustomEvent implements Serializable {
     public void setEventHost(CustomHost eventHost) {
         this.eventHost = eventHost;
     }
+
+    @Override
+    public String toString() {
+        return this.eventname; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
     
 }

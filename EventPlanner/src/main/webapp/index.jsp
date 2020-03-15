@@ -21,19 +21,28 @@
         <p>by Andreas Bitzan and Moritz Withöft</p>
         </header>
         <main>
-            <h2>Events happening this week</h2>
+            <h2 class="subheader">Upcoming events</h2>
+
             <section class="eventSection">
                 <jsp:useBean id="events" class="beans.EventBean" scope="session"/>
                 <c:choose>
-                <c:when test="!${events.isEmpty()}">
+                <c:when test="${events.isEmpty()==false}">
                     
                     <ul>
                         <c:forEach items="${events.getEventList()}" var="tmpEvent">
-                            <li>
-                                <a href="<%= response.encodeURL("ShowEvent.jsp") %>">
-                                <c:out value="${tmpEvent}"/>
-                                <a href="/EditServlet?id={tmpEvent.id}">Edit Event</a>
-                                </a>
+                            <li class="card">
+                                
+                               
+                                    <h3>${tmpEvent.eventname}</h3>
+                                    <p>${tmpEvent.getStartDate()}</p>
+                                    <p>${tmpEvent.getShortDescription()}</p>
+                                    
+                                <div class="bottomBtns">
+                                <a href="<c:url value = "/ShowEvent?id=${tmpEvent.id}"/>">Show more</a>
+                                  <a href="<c:url value = "/CreateEvent?id=${tmpEvent.id}"/>">Edit</a>
+                                 <a href="<c:url value = "/DeleteEvent?id=${tmpEvent.id}"/>">Delete</a>
+                                </div>
+                          
                             </li>
                         </c:forEach>
                     </ul>
@@ -48,8 +57,8 @@
                 </c:choose>
 
             </section>
-                <section>
-                    <a class="greenBtn" href='CreateEvent'>Create new event</a>
+                <section class="create">
+                    <a class="greenBtn" href='CreateEvent'>+ Create new event</a>
                 </section>
        
 

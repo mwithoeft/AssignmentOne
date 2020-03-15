@@ -21,11 +21,68 @@ header p{
     margin: 0 2rem;
     color: white;
 }
-main{
+.mainContainer{
     margin: 2rem;
     background-color: #efefef;
     padding: 2rem 0.5rem;
 }
+.subheader{
+    color:white;
+    text-align: center;
+}
+ul{
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: wrap;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+}
+.card h3{
+    text-align: center;
+}
+.bottomBtns{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+    justify-content: space-between;
+}
+.bottomBtns a{
+    padding: 0.5rem;
+    margin: 0.2rem;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    flex-basis: 35%;
+    text-align: center;
+}
+.bottomBtns a:hover{
+    text-decoration: underline;
+}
+
+.bottomBtns a:first-child{
+    flex-basis: 100%;
+    text-align: center;
+    background-color: #964b98;
+}
+.bottomBtns a:nth-child(2){
+    background-color: green;
+}
+
+.bottomBtns a:last-child{
+    background-color: red;
+}
+
+
 
 .eventSection{
     padding: 1rem 0; 
@@ -61,4 +118,9 @@ label{
     font-size: 100%;
     border: none;
     font-family: inherit;
+}
+
+.create{
+    display: flex;
+    justify-content: center;
 }

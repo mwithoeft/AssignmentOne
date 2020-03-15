@@ -6,10 +6,9 @@
 package servlets;
 
 import beans.EventBean;
-import beans.HostBean;
-import java.io.Console;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,15 +17,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import tables.CustomEvent;
-import tables.CustomHost;
+import tables.CustomEventDB;
 
 /**
  *
  * @author Andreas Bitzan
  */
-@WebServlet(name = "CreateEvent", urlPatterns = {"/CreateEvent"})
-public class CreateEvent extends HttpServlet {
-
+@WebServlet(name = "DeleteEvent", urlPatterns = {"/DeleteEvent"})
+public class DeleteEvent extends HttpServlet {
+    @Inject
+    private CustomEventDB eventDB;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,24 +40,24 @@ public class CreateEvent extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session=request.getSession();
-        String redirectURL="/CreateEvent.jsp";
+        String id=request.getParameter("id");
+        int eventID=Integer.parseInt(id);
         try{
-            int eventID=Integer.parseInt(request.getParameter("id"));
-            EventBean allEvents = (EventBean)session.getAttribute("events");
-            if(!allEvents.isEmpty()){
+        HttpSession session= request.getSession();
+        EventBean allEvents = (EventBean)session.getAttribute("events");
+        if(!allEvents.isEmpty()){
             CustomEvent currentEvent=allEvents.getEvent(eventID);
-            request.setAttribute("currentevent", currentEvent);
+            //eventDB.delete(currentEvent);
         }
-            redirectURL="/CreateEvent2.jsp";
-            
-        }catch (Exception ex){
-            
+        request.setAttribute("custommessage", "Event successfully deleted");
         }
-
-                 RequestDispatcher dispatcher = getServletContext().
-         getRequestDispatcher(redirectURL);
+        catch (Exception ex){
+             request.setAttribute("custommessage", "Event could not be deleted");
+        }
+                      RequestDispatcher dispatcher = getServletContext().
+            getRequestDispatcher("/DeleteEvent.jsp");
          dispatcher.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
