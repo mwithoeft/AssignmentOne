@@ -6,6 +6,7 @@
 package servlets;
 
 import beans.EventBean;
+import beans.HostBean;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import tables.CustomEvent;
 import tables.CustomEventDB;
+import tables.CustomHost;
 import tables.CustomHostDB;
 
 /**
@@ -29,7 +31,8 @@ import tables.CustomHostDB;
 public class IndexServlet extends HttpServlet {
     @Inject
     private CustomEventDB eventDB;
-    
+    @Inject
+    private CustomHostDB hostDB;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,11 +46,15 @@ public class IndexServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         List<CustomEvent>eventList=eventDB.findAll();
+        List<CustomHost>hostList=hostDB.findAll();
+        HostBean hostbean=new HostBean();
         EventBean eventbean=new EventBean();
         try{
             HttpSession session= request.getSession(true);
             eventbean.setHostList(eventList);
+            hostbean.setHostList(hostList);
             session.setAttribute("events", eventbean);
+            session.setAttribute("hosts", hostbean);
         }
         catch(Exception ex){
            
