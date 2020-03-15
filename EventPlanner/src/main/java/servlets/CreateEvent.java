@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,9 +7,13 @@ package servlets;
 
 import beans.EventBean;
 import beans.HostBean;
-import java.io.Console;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,15 +22,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import tables.CustomEvent;
+import tables.CustomEventDB;
 import tables.CustomHost;
+import tables.CustomHostDB;
 
 /**
  *
- * @author Andreas Bitzan
+ * @author hallo
  */
 @WebServlet(name = "CreateEvent", urlPatterns = {"/CreateEvent"})
 public class CreateEvent extends HttpServlet {
 
+    @Inject
+    private CustomHostDB hostDB;
+    @Inject 
+    private CustomEventDB eventDB;
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,27 +50,138 @@ public class CreateEvent extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session=request.getSession();
-        String redirectURL="/CreateEvent.jsp";
-        try{
-            int eventID=Integer.parseInt(request.getParameter("id"));
-            EventBean allEvents = (EventBean)session.getAttribute("events");
-            if(!allEvents.isEmpty()){
-            CustomEvent currentEvent=allEvents.getEvent(eventID);
-            request.setAttribute("currentevent", currentEvent);
+        
+        HttpSession session = request.getSession();
+        HostBean hostBean = (HostBean) session.getAttribute("hosts");
+        
+        
+        CustomEvent event = new CustomEvent();
+        boolean allFilled = checkParameters(event, request, hostBean);
+        
+        
+        if (allFilled) {
+            eventDB.create(event);
+        } else {
+            EventBean eBean = new EventBean();
+            eBean.addEvent(event);
+            
+            
         }
-            redirectURL="/CreateEvent2.jsp";
-            
-        }catch (Exception ex){
-            
+        
+        
+        /*RequestDispatcher dispatcher = getServletContext().
+            getRequestDispatcher("/CustomerDetails.jsp");
+         dispatcher.forward(request, response);*/
+    }
+    
+    private boolean checkParameters(CustomEvent event, HttpServletRequest request, HostBean hostBean) {
+
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
+
+        String eventname = request.getParameter("eventname");
+        String shortDescription = request.getParameter("shortdesc");
+        String longDescription = request.getParameter("longdesc");
+        String startDate = request.getParameter("startdate");
+        String endDate = request.getParameter("enddate");
+        String startTime = request.getParameter("starttime");
+        String endTime = request.getParameter("starttime");
+        String hostId = request.getParameter("eventhost");
+
+        /* Checking if all values are set and add them to event if so*/
+        boolean allFilled = true;
+        if (isNotFilled(eventname)) {
+            allFilled = false;
+        } else {
+            event.setEventname(eventname);
         }
 
-                 RequestDispatcher dispatcher = getServletContext().
-         getRequestDispatcher(redirectURL);
-         dispatcher.forward(request, response);
+        if (isNotFilled(shortDescription)) {
+            allFilled = false;
+        } else {
+            event.setShortDescription(shortDescription);
+        }
+
+        if (isNotFilled(longDescription)) {
+            allFilled = false;
+        } else {
+            event.setLongDescription(longDescription);
+        }
+
+        Date parsedStartDate = today;
+        if (isNotFilled(startDate)) {
+            allFilled = false;
+        } else {
+            try {
+                parsedStartDate = dateParser.parse(startDate);
+                /* Checking if start date is today or after */
+                if (parsedStartDate.compareTo(today) >= 0) {
+                    event.setStartDate(parsedStartDate);
+                } else {
+                    allFilled = false;
+                }
+            } catch (ParseException ex) {
+                allFilled = false;
+            }
+        }
+        
+        if (isNotFilled(endDate)) {
+            allFilled = false;
+        }  else {
+            try {
+                Date parsedEndDate = dateParser.parse(endDate);                
+                /* Checking if end date is on or after start date */
+                if (parsedEndDate.compareTo(parsedStartDate) >= 0) {
+                    event.setEndDate(parsedEndDate);
+                } else {
+                    allFilled = false;
+                }
+            } catch (ParseException ex) {
+                allFilled = false;
+            }
+        }
+        
+        if (isNotFilled(startTime)) {
+            allFilled = false;
+        } else {
+            try {
+                Date parsedStartTime = new SimpleDateFormat("hh:mm:ss").parse(startTime+":00");
+                event.setStartTime(parsedStartTime);
+            } catch (ParseException ex) {
+                allFilled = false;
+            }
+        }
+        
+        if (isNotFilled(endTime)) {
+            allFilled = false;
+        } else {
+            try {
+                Date parsedEndTime = new SimpleDateFormat("hh:mm:ss").parse(endTime+":00");
+                event.setEndTime(parsedEndTime);
+            } catch (ParseException ex) {
+                allFilled = false;
+            }
+        }
+        
+        if (isNotFilled(hostId)) {
+            allFilled = false;
+        } else {
+            CustomHost host = hostBean.getHost(Integer.parseInt(hostId));
+            if (host != null) {
+                event.setEventHost(host);
+            } else {
+                allFilled = false;
+            }
+        }
+        return allFilled;
+    }
+    
+    private boolean isNotFilled(String s) {
+        return (s == null || s.equals(""));
     }
 
+
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
