@@ -1,6 +1,5 @@
 package servlets;
 
-import beans.EventBean;
 import beans.HostBean;
 import java.io.IOException;
 import java.text.ParseException;
@@ -84,18 +83,21 @@ public class ValidateEvent extends HttpServlet {
         boolean allFilled = true;
         if (isNotFilled(eventname)) {
             allFilled = false;
+            event.setEventname("");
         } else {
             event.setEventname(eventname);
         }
 
         if (isNotFilled(shortDescription)) {
             allFilled = false;
+            event.setShortDescription("");
         } else {
             event.setShortDescription(shortDescription);
         }
 
         if (isNotFilled(longDescription)) {
             allFilled = false;
+            event.setLongDescription("");
         } else {
             event.setLongDescription(longDescription);
         }
