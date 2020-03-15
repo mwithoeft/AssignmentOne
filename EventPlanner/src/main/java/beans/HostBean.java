@@ -49,4 +49,7 @@ public class HostBean implements Serializable {
         }
         return null;
     }
+            public boolean isEmpty(){
+        return this.hostlist.isEmpty();
+    }
 }

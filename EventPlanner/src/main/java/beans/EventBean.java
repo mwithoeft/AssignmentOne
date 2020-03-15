@@ -47,4 +47,7 @@ public class EventBean implements Serializable{
         }
         return null;
     }
+    public boolean isEmpty(){
+        return this.eventList.isEmpty();
+    }
 }
