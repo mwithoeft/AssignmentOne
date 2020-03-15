@@ -41,12 +41,9 @@ public class ValidateHost extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        
+    
         CustomHost host = new CustomHost();
         boolean allFilled = checkParameters(host, request);
-        
-        System.out.println("Test");
         
         if (allFilled) {
             hostDB.create(host);
@@ -54,7 +51,6 @@ public class ValidateHost extends HttpServlet {
                     getRequestDispatcher("/Success.jsp");
             dispatcher.forward(request, response);
         } else {
-            System.out.println("Weiter");
             HostBean hBean = new HostBean();
             hBean.addHost(host);
             request.setAttribute("host", hBean);
