@@ -36,6 +36,7 @@ public class ValidateHost extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
     
         CustomHost host = new CustomHost();
+        host.setSelfInitialized(true);
         boolean allFilled = checkParameters(host, request);
         
         if (allFilled) {
@@ -44,9 +45,7 @@ public class ValidateHost extends HttpServlet {
                     getRequestDispatcher("/Success.jsp");
             dispatcher.forward(request, response);
         } else {
-            HostBean hBean = new HostBean();
-            hBean.addHost(host);
-            request.setAttribute("host", hBean);
+            request.setAttribute("host", host);
             RequestDispatcher dispatcher = getServletContext().
                     getRequestDispatcher("/CreateHost");
             dispatcher.forward(request, response);
@@ -63,18 +62,21 @@ public class ValidateHost extends HttpServlet {
         
         if (!isNotFilled(firstname)) {
             host.setFirstname(firstname);
+        } else {
+            host.setFirstname("");
         }
         
         if (!isNotFilled(lastname)) {
             host.setLastname(lastname);
+        } else {
+            host.setLastname("");
         }
         
         /*Only location is mandatory*/
         if (isNotFilled(location)) {
             allFilled = false;
-            System.out.println("Hier aber");
+            host.setLocation("");
         } else {
-            System.out.println("Hier");
             host.setLocation(location);
         }
         

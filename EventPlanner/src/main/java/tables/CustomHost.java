@@ -12,6 +12,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -47,8 +48,11 @@ public class CustomHost implements Serializable {
     )
     private Set<CustomEvent> hostedEvents;
     
+    @Transient
+    private boolean selfInitialized;
+    
     public CustomHost(){
-        
+        this.selfInitialized = false;
     }
     
     public Long getId() {
@@ -103,6 +107,12 @@ public class CustomHost implements Serializable {
         this.hostedEvents = hostedEvents;
     }
     
+    public void setSelfInitialized(boolean selfInitialized) {
+        this.selfInitialized = selfInitialized;
+    }
+    public boolean getSelfInitialized(){
+        return this.selfInitialized;
+    }
     
     
 }

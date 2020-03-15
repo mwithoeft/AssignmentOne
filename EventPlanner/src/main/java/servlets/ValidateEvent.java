@@ -47,6 +47,7 @@ public class ValidateEvent extends HttpServlet {
         HostBean hostBean = (HostBean) session.getAttribute("hosts");
         
         CustomEvent event = new CustomEvent();
+        event.setSelfInitialized(true);
         boolean allFilled = checkParameters(event, request, hostBean);
         
         
@@ -56,9 +57,7 @@ public class ValidateEvent extends HttpServlet {
                     getRequestDispatcher("/Success.jsp");
             dispatcher.forward(request, response);
         } else {
-            EventBean eBean = new EventBean();
-            eBean.addEvent(event);
-            request.setAttribute("event", eBean);
+            request.setAttribute("event", event);
             RequestDispatcher dispatcher = getServletContext().
                     getRequestDispatcher("/CreateEvent");
             dispatcher.forward(request, response);

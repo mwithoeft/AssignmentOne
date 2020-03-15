@@ -16,6 +16,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -62,9 +63,11 @@ public class CustomEvent implements Serializable {
     @JoinColumn(name ="host")
     private CustomHost eventHost;
     
+    @Transient
+    private boolean selfInitialized;
     
     public CustomEvent(){
-        
+        this.selfInitialized = false;
     }
     
     public Long getId() {
@@ -142,8 +145,16 @@ public class CustomEvent implements Serializable {
     public void setEventHost(CustomHost eventHost) {
         this.eventHost = eventHost;
     }
-    
-    
+
+    public void setSelfInitialized(boolean selfInitialized) {
+        this.selfInitialized = selfInitialized;
+    }
+
+    public boolean getSelfInitialized() {
+        return this.selfInitialized;
+    }
+
+
     @Override
     public String toString(){
         String eventString = String.format("\nEvent: %s\r\n", this.eventname);
