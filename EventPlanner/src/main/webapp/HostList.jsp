@@ -21,13 +21,13 @@
     <body>
         <header>
         <h1>Lists of all hosts</h1>
-        
-        <main class="mainContainer">
-            <c:if test="${not empty requestScope.message}" >
+        <c:if test="${not empty requestScope.message}" >
             <p class="notification">
                 ${requestScope.message}
             </p>
         </c:if>
+        <main class="mainContainer">
+
             <section class="hostList">
                 <jsp:useBean id="hosts" class="beans.HostBean" scope="session"/>
                 <c:choose>
