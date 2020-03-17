@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : 10.03.2020, 18:43:29
-    Author     : Andreas Bitzan
+    Author     : Andreas Bitzan, Moritz Withoeft
 --%>
 <%-- Including the necessary headers--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -38,7 +38,7 @@
                                 
                                
                                     <h3>${tmpEvent.eventname}</h3>
-                                    <p>${tmpEvent.displayStartTime()}</p>
+                                    <p>${tmpEvent.getStartDateString()}</p>
                                     <p>${tmpEvent.getShortDescription()}</p>
                                     
                                 <div class="bottomBtns">
