@@ -37,7 +37,7 @@
         <form class="createEventForm" action="ValidateEvent" method="POST">
         <c:choose>
             <%-- If event was featured in request, use it to autofill the form --%>
-            <c:when test="${currentevent.selfInitialized == true}">
+            <c:when test="${not empty currentevent}">
                 
                   <div>
                       <label for="eventname">Name of event</label>
