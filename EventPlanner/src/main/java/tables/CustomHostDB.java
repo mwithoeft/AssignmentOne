@@ -5,6 +5,7 @@ import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -68,13 +69,6 @@ public class CustomHostDB {
         return host;
     }
     
-    public CustomHost reattach(CustomHost host) {
-        if (!em.contains(host)) {
-            host = em.merge(host);
-        }
-        return host;
-    }
-    
     public void delete(CustomHost host) {
         try {
             this.utx.begin();
@@ -96,6 +90,13 @@ public class CustomHostDB {
                 System.err.println("Rollback failed: " + ex);
             }
         }
+    }
+    
+    public CustomHost findById(long id) {
+        Query q = em.createQuery("SELECT a FROM CustomHost a WHERE a.id = :id");
+        q.setParameter("id", id);
+        q.setMaxResults(1);
+        return (CustomHost) q.getSingleResult();
     }
 
     public List<CustomHost> findAll() {

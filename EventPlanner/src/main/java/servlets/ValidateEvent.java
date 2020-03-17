@@ -25,13 +25,12 @@ import tables.CustomHostDB;
  */
 @WebServlet(name = "ValidateEvent", urlPatterns = {"/ValidateEvent"})
 public class ValidateEvent extends HttpServlet {
-
-    @Inject 
+    
+    @Inject    
     private CustomEventDB eventDB;
     @Inject
     private CustomHostDB hostDB;
-    
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,7 +51,6 @@ public class ValidateEvent extends HttpServlet {
         event.setSelfInitialized(true);
         boolean allFilled = checkParameters(event, request, hostBean);
         
-        
         if (allFilled) {
             eventDB.create(event);
             request.setAttribute("message", "Event has been successfully created!");
@@ -65,15 +63,14 @@ public class ValidateEvent extends HttpServlet {
                     getRequestDispatcher("/CreateEvent");
             dispatcher.forward(request, response);
         }
-
-
+        
     }
     
     private boolean checkParameters(CustomEvent event, HttpServletRequest request, HostBean hostBean) {
-
+        
         Date today = Calendar.getInstance().getTime();
         SimpleDateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd");
-
+        
         String eventname = request.getParameter("eventname");
         String shortDescription = request.getParameter("shortdesc");
         String longDescription = request.getParameter("longdesc");
@@ -91,21 +88,21 @@ public class ValidateEvent extends HttpServlet {
         } else {
             event.setEventname(eventname);
         }
-
+        
         if (isNotFilled(shortDescription)) {
             allFilled = false;
             event.setShortDescription("");
         } else {
             event.setShortDescription(shortDescription);
         }
-
+        
         if (isNotFilled(longDescription)) {
             allFilled = false;
             event.setLongDescription("");
         } else {
             event.setLongDescription(longDescription);
         }
-
+        
         Date parsedStartDate = today;
         if (isNotFilled(startDate)) {
             allFilled = false;
@@ -125,9 +122,9 @@ public class ValidateEvent extends HttpServlet {
         
         if (isNotFilled(endDate)) {
             allFilled = false;
-        }  else {
+        } else {
             try {
-                Date parsedEndDate = dateParser.parse(endDate);                
+                Date parsedEndDate = dateParser.parse(endDate);
                 /* Checking if end date is on or after start date */
                 if (parsedEndDate.compareTo(parsedStartDate) >= 0) {
                     event.setEndDate(parsedEndDate);
@@ -143,7 +140,7 @@ public class ValidateEvent extends HttpServlet {
             allFilled = false;
         } else {
             try {
-                Date parsedStartTime = new SimpleDateFormat("hh:mm:ss").parse(startTime+":00");
+                Date parsedStartTime = new SimpleDateFormat("hh:mm:ss").parse(startTime + ":00");
                 event.setStartTime(parsedStartTime);
             } catch (ParseException ex) {
                 allFilled = false;
@@ -154,7 +151,7 @@ public class ValidateEvent extends HttpServlet {
             allFilled = false;
         } else {
             try {
-                Date parsedEndTime = new SimpleDateFormat("hh:mm:ss").parse(endTime+":00");
+                Date parsedEndTime = new SimpleDateFormat("hh:mm:ss").parse(endTime + ":00");
                 event.setEndTime(parsedEndTime);
             } catch (ParseException ex) {
                 allFilled = false;
@@ -164,9 +161,9 @@ public class ValidateEvent extends HttpServlet {
         if (isNotFilled(hostId) || hostId.equals("nohost")) {
             allFilled = false;
         } else {
-            CustomHost host = hostBean.getHost(Integer.parseInt(hostId));
+            CustomHost host = hostDB.findById(Integer.parseInt(hostId));
             if (host != null) {
-                host = hostDB.reattach(host);
+                host.setEventsHosted(host.getEventsHosted() + 1);
                 event.setEventHost(host);
             } else {
                 allFilled = false;
@@ -178,7 +175,6 @@ public class ValidateEvent extends HttpServlet {
     private boolean isNotFilled(String s) {
         return (s == null || s.equals(""));
     }
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
