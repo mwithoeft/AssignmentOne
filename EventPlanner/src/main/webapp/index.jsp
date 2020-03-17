@@ -50,7 +50,7 @@
    
                 </c:when>
                 <c:otherwise>
-                    <div><h3>No events registered so far...</h3>
+                    <div><h3 class="warning">No events registered so far...</h3>
         
                     </div>
                 </c:otherwise>

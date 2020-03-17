@@ -22,67 +22,119 @@
          <header>
         <h1>Create New Event</h1>
         </header>
-          <main>
-         <form action="ValidateEvent" method="POST">
-         <p>
-             <label for="eventname">Name of event</label>
-            <input type="text" name="eventname"/>
-         </p>
-         <p>
-             <label for="shortdesc">Short description</label>
-             <input type="text" name="shortdesc" />
-         </p>
-         <p>
-            <label for="longdesc">Long description</label>
-            <textarea id="longdesc" rows="4" cols="50" name="longdesc">
-            </textarea>
-         </p>
-         <p>
-             <label for="startdate">Start Date</label>
-             <input type="date" name="startdate" />
-         </p>
-         <p>
-             <label for="starttime">Start Time</label>
-             <input type="time" name="starttime" />
-         </p>
-         <p>
-             <label for="enddate">End Date</label>
-             <input type="date" name="enddate" />
-         </p>
-         <p>
-             <label for="endtime">End Time</label>
-             <input type="time" name="endtime" />
-         </p>
-         <p>
-             <label for="eventhost">Host</label>
-             <select id="eventhost" name="eventhost" >
-                 <jsp:useBean id="hostbean" class="beans.HostBean" scope="session"/>
+          <main class="mainContainer">
+        <jsp:useBean id="currentevent" class="tables.CustomEvent" scope="request"/>
+        <jsp:useBean id="hosts" class="beans.HostBean" scope="session" />
+        <c:choose>
+            <c:when test="${not empty currentevent}">
+            <form action="ValidateEvent" method="POST">
+                  <p>
+                      <label for="eventname">Name of event</label>
+                      <input type="text" name="eventname" value="${currentevent.eventname}"/>
+                  </p>
+                  <p>
+                      <label for="shortdesc">Short description</label>
+                      <input type="text" name="shortdesc" value="${currentevent.shortDescription}"/>
+                  </p>
+                  <p>
+                     <label for="longdesc">Long description</label>
+                     <textarea id="longdesc" rows="4" cols="50" name="longdesc">
+                       ${currentevent.longDescription}
+                     </textarea>
+                  </p>
+                  <p>
+                      <label for="startdate">Start Date</label>
+                      <input type="date" name="startdate" value="${currentevent.startDate}" />
+                  </p>
+                  <p>
+                      <label for="starttime">Start Time</label>
+                      <input type="time" name="starttime" />
+                  </p>
+                  <p>
+                      <label for="enddate">End Date</label>
+                      <input type="date" name="enddate" />
+                  </p>
+                  <p>
+                      <label for="endtime">End Time</label>
+                      <input type="time" name="endtime" />
+                  </p>
+                  <p>
+                      <label for="eventhost">Host</label>
+                      <select id="eventhost" name="eventhost" >
+                      
+                          ${hosts.hostList}
+                         <c:choose>
+                         <c:when test="${hosts.isEmpty()==false}">
+                             <c:forEach items="${hosts.getHostList()}" var="host">
+                                  <option value="${host.getId()}">${host}</option>
+                                 </c:forEach>
+                         </c:when>
+                         <c:otherwise>
+                             <option value="nohost">No host defined yet</option>
+                         </c:otherwise>
+                         </c:choose>
+                      </select>
+                         <a class="block" href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
+                  </p>
+                  <input type="submit" value="Create" class="greenBtn submitBtn"/>
+                  <a class="redBtn greenBtn" href="<%= response.encodeURL("index.jsp") %>">Cancel</a>
+               </form>
                 
-                <c:choose>
-                <c:when test="!${hostbean.isEmpty()}">
-                     <c:forEach items="${hostbean}" var="host">
-                         <option value="${hostbean}">${hostbean}</option>
-                        </c:forEach>
-                </c:when>
-                <c:otherwise>
-                    <option value="nohost">No host defined yet</option>
-                </c:otherwise>
-                </c:choose>
-             </select>
-                <a class="block" href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
-         </p>
-         <input type="submit" value="Create" class="greenBtn submitBtn"/>
-         <a class="redBtn greenBtn" href="<%= response.encodeURL("index.jsp") %>">Cancel</a>
-      </form>
-        
-          ${requestScope.LOL}
-          ${requestScope.LOL.getHostList()}
-           <c:forEach items="    ${requestScope.LOL.getHostList()}" var="host">
-                         <h1>${host.toString()}</h1>
-                        </c:forEach>
-          Session:
-          ${sessionScope.LOL}
-      
+            </c:when>
+            <c:otherwise>
+                            <form action="ValidateEvent" method="POST">
+                  <p>
+                      <label for="eventname">Name of event</label>
+                      <input type="text" name="eventname" />
+                  </p>
+                  <p>
+                      <label for="shortdesc">Short description</label>
+                      <input type="text" name="shortdesc" />
+                  </p>
+                  <p>
+                     <label for="longdesc">Long description</label>
+                     <textarea id="longdesc" rows="4" cols="50" name="longdesc">
+                    
+                     </textarea>
+                  </p>
+                  <p>
+                      <label for="startdate">Start Date</label>
+                      <input type="date" name="startdate"  />
+                  </p>
+                  <p>
+                      <label for="starttime">Start Time</label>
+                      <input type="time" name="starttime" />
+                  </p>
+                  <p>
+                      <label for="enddate">End Date</label>
+                      <input type="date" name="enddate" />
+                  </p>
+                  <p>
+                      <label for="endtime">End Time</label>
+                      <input type="time" name="endtime" />
+                  </p>
+                  <p>
+                      <label for="eventhost">Host</label>
+                      <select id="eventhost" name="eventhost" >
+                         <c:choose>
+                         <c:when test="${hosts.isEmpty()==false}">
+                             <c:forEach items="${hosts.hostList}" var="host">
+                                  <option value="${host.getId()}">${host}</option>
+                                 </c:forEach>
+                         </c:when>
+                         <c:otherwise>
+                             <option value="nohost">No host defined yet</option>
+                         </c:otherwise>
+                         </c:choose>
+                      </select>
+                         <a class="block" href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
+                  </p>
+                  <input type="submit" value="Create" class="greenBtn submitBtn"/>
+                  <a class="redBtn greenBtn" href="<%= response.encodeURL("index.jsp") %>">Cancel</a>
+               </form>
+            </c:otherwise>
+        </c:choose>
+ 
         </main>
     </body>
 </html>

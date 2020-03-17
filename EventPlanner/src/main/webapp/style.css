@@ -124,3 +124,8 @@ label{
     display: flex;
     justify-content: center;
 }
+
+.warning{
+    color: white;
+    text-align: center;
+}

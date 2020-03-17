@@ -49,6 +49,7 @@ public class IndexServlet extends HttpServlet {
         List<CustomHost>hostList=hostDB.findAll();
         HostBean hostbean=new HostBean();
         EventBean eventbean=new EventBean();
+        System.out.println(hostList);
         try{
             HttpSession session= request.getSession(true);
             eventbean.setHostList(eventList);
