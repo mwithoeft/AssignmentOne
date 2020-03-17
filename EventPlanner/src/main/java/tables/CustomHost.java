@@ -78,7 +78,6 @@ public class CustomHost implements Serializable {
     public int getEventsHosted() {
         return eventsHosted;
     }
-
     public Set<CustomEvent> getHostedEvents() {
         return hostedEvents;
     }
@@ -113,6 +112,12 @@ public class CustomHost implements Serializable {
     public boolean getSelfInitialized(){
         return this.selfInitialized;
     }
+
+    @Override
+    public String toString() {
+        return this.firstname+ " "+this.lastname; //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
     
 }

@@ -19,7 +19,7 @@
         <header>
             <h1>Create New Host</h1>
         </header>
-        <main>
+        <main class="mainContainer">
             <jsp:useBean id="host" class="tables.CustomHost" scope="request"/>
             <c:choose>
                 <c:when test="${not empty host && host.getSelfInitialized()}">
