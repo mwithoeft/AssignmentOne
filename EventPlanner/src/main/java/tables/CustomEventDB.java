@@ -13,7 +13,9 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 /**
- *
+ * Database connector for the events.
+ * Uses EntityManager for persistence.
+ * 
  * @author Andreas Bitzan, Moritz Withoeft
  */
 public class CustomEventDB {
@@ -27,6 +29,11 @@ public class CustomEventDB {
     public CustomEventDB() {
     }
 
+    /**
+     * Adds event to persistence context and database.
+     * 
+     * @param event Event to be added to persistence context
+     */
     public void create(CustomEvent event) {
         try {
             this.utx.begin();
@@ -47,6 +54,12 @@ public class CustomEventDB {
         }
     }
     
+    /**
+     * Updates event in database.
+     * 
+     * @param event Event to be updated
+     * @return Returns reference to merged event after update
+     */
     public CustomEvent update(CustomEvent event){
         try {
             this.utx.begin();
@@ -68,6 +81,11 @@ public class CustomEventDB {
         return event;
     }
 
+    /**
+     * Deletes event from database and persistence context.
+     * 
+     * @param event Event to be deleted from persistence context and database
+     */
     public void delete(CustomEvent event) {
         try {
             this.utx.begin();
@@ -91,6 +109,11 @@ public class CustomEventDB {
         }
     }
 
+    /**
+     * Searches for all events upcoming.
+     * 
+     * @return List of all found events 
+     */
     public List<CustomEvent> findAll() {
         return em.createNamedQuery("CustomEvent.findAll", CustomEvent.class).getResultList();
     }

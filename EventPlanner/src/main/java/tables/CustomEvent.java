@@ -1,10 +1,8 @@
 package tables;
 
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +19,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
+ * Event Entity that will be persistent in database. Each instance represents
+ * one table row in database.
  *
  * @author Andreas Bitzan, Moritz Withoeft
  */
@@ -132,12 +132,6 @@ public class CustomEvent implements Serializable {
         this.startTime = startTime;
     }
 
-    public String displayStartTime() {
-        Locale loc = new Locale("en", "US");
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, loc);
-        return dateFormat.format(this.startDate);
-    }
-
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
@@ -162,6 +156,11 @@ public class CustomEvent implements Serializable {
         return this.selfInitialized;
     }
 
+    /**
+     * Formats startTime to String, to display in JSP.
+     *
+     * @return startTime as String in HTML format
+     */
     public String getStartTimeString() {
         if (startTime != null) {
             return new SimpleDateFormat("HH:mm").format(startTime);
@@ -170,6 +169,11 @@ public class CustomEvent implements Serializable {
         }
     }
 
+    /**
+     * Formats endTime to String, to display in JSP.
+     *
+     * @return endTime as String in HTML format
+     */
     public String getEndTimeString() {
         if (endTime != null) {
             return new SimpleDateFormat("HH:mm").format(endTime);
@@ -178,6 +182,11 @@ public class CustomEvent implements Serializable {
         }
     }
 
+    /**
+     * Formats startDate to String, to display in JSP.
+     *
+     * @return startDate as String in HTML format
+     */
     public String getStartDateString() {
         if (startDate != null) {
             return new SimpleDateFormat("YYYY-MM-dd").format(startDate);
@@ -186,6 +195,11 @@ public class CustomEvent implements Serializable {
         }
     }
 
+    /**
+     * Formats endDate to String, to display in JSP.
+     *
+     * @return endDate as String in HTML format
+     */
     public String getEndDateString() {
         if (endDate != null) {
             return new SimpleDateFormat("YYYY-MM-dd").format(endDate);

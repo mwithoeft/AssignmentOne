@@ -15,13 +15,15 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
+ * Host Entity that will be persistent in database. Each instance represents one
+ * table row in database.
  *
  * @author Andreas Bitzan, Moritz Withoeft
  */
 @Entity
 @Table(name = "hosts")
 @NamedQueries({
-    @NamedQuery(name="CustomHost.findAll", query="SELECT a FROM CustomHost a")
+    @NamedQuery(name = "CustomHost.findAll", query = "SELECT a FROM CustomHost a")
 })
 public class CustomHost implements Serializable {
 
@@ -29,32 +31,32 @@ public class CustomHost implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-   
+
     @Column
     private String lastname;
-    
+
     @Column
     private String firstname;
-    
+
     @Column
     private String location;
-    
+
     @Column
     private int eventsHosted;
-    
+
     @OneToMany(
             mappedBy = "eventHost",
             cascade = CascadeType.MERGE
     )
     private Set<CustomEvent> hostedEvents;
-    
+
     @Transient
     private boolean selfInitialized;
-    
-    public CustomHost(){
+
+    public CustomHost() {
         this.selfInitialized = false;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -78,6 +80,7 @@ public class CustomHost implements Serializable {
     public int getEventsHosted() {
         return eventsHosted;
     }
+
     public Set<CustomEvent> getHostedEvents() {
         return hostedEvents;
     }
@@ -105,19 +108,18 @@ public class CustomHost implements Serializable {
     public void setHostedEvents(Set<CustomEvent> hostedEvents) {
         this.hostedEvents = hostedEvents;
     }
-    
+
     public void setSelfInitialized(boolean selfInitialized) {
         this.selfInitialized = selfInitialized;
     }
-    public boolean getSelfInitialized(){
+
+    public boolean getSelfInitialized() {
         return this.selfInitialized;
     }
 
     @Override
     public String toString() {
-        return this.firstname+ " "+this.lastname;
+        return this.firstname + " " + this.lastname;
     }
-    
-    
-    
+
 }

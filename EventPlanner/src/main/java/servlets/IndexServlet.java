@@ -8,7 +8,6 @@ package servlets;
 import beans.EventBean;
 import beans.HostBean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
