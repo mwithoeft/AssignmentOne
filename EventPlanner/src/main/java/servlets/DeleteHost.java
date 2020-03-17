@@ -52,7 +52,7 @@ public class DeleteHost extends HttpServlet {
                     hostDB.delete(currentHost);
                     request.setAttribute("message", "Host successfully deleted");
                 } else {
-                    request.setAttribute("message", "Host successfully deleted");
+                    request.setAttribute("message", "Host can't be deleted since it is still hosting an event!");
                 }
             }
         } catch (Exception ex) {
