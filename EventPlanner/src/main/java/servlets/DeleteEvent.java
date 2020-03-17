@@ -25,9 +25,10 @@ import tables.CustomEventDB;
  */
 @WebServlet(name = "DeleteEvent", urlPatterns = {"/DeleteEvent"})
 public class DeleteEvent extends HttpServlet {
+
     @Inject
     private CustomEventDB eventDB;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,24 +41,24 @@ public class DeleteEvent extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id=request.getParameter("id");
-        int eventID=Integer.parseInt(id);
-        try{
-        HttpSession session= request.getSession();
-        EventBean allEvents = (EventBean)session.getAttribute("events");
-        if(!allEvents.isEmpty()){
-            CustomEvent currentEvent=allEvents.getEvent(eventID);
-            //eventDB.delete(currentEvent);
+        String id = request.getParameter("id");
+        int eventID = Integer.parseInt(id);
+        try {
+            HttpSession session = request.getSession();
+            EventBean allEvents = (EventBean) session.getAttribute("events");
+            if (!allEvents.isEmpty()) {
+                CustomEvent currentEvent = allEvents.getEvent(eventID);
+                eventDB.delete(currentEvent);
+            }
+            request.setAttribute("message", "Event successfully deleted");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            request.setAttribute("message", "Event could not be deleted");
         }
-        request.setAttribute("custommessage", "Event successfully deleted");
-        }
-        catch (Exception ex){
-             request.setAttribute("custommessage", "Event could not be deleted");
-        }
-                      RequestDispatcher dispatcher = getServletContext().
-            getRequestDispatcher("/DeleteEvent.jsp");
-         dispatcher.forward(request, response);
-        
+        RequestDispatcher dispatcher = getServletContext().
+                getRequestDispatcher("/Success.jsp");
+        dispatcher.forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

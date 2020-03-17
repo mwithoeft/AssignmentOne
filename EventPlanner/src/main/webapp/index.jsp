@@ -59,6 +59,7 @@
             </section>
                 <section class="create">
                     <a class="greenBtn" href='CreateEvent'>+ Create new event</a>
+                    <a class="greenBtn" href='HostList'>List of Hosts</a>
                 </section>
        
 

@@ -68,11 +68,21 @@ public class CustomHostDB {
         return host;
     }
     
+    public CustomHost reattach(CustomHost host) {
+        if (!em.contains(host)) {
+            host = em.merge(host);
+        }
+        return host;
+    }
+    
     public void delete(CustomHost host) {
         try {
             this.utx.begin();
         } catch (NotSupportedException | SystemException ex) {
             System.err.println("Error starting the transaction: " + ex);
+        }
+        if (!em.contains(host)) {
+            host = em.merge(host);
         }
         em.remove(host);
         try {

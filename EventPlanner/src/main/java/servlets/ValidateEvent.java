@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import tables.CustomEvent;
 import tables.CustomEventDB;
 import tables.CustomHost;
+import tables.CustomHostDB;
 
 /**
  *
@@ -27,6 +28,8 @@ public class ValidateEvent extends HttpServlet {
 
     @Inject 
     private CustomEventDB eventDB;
+    @Inject
+    private CustomHostDB hostDB;
     
     
     /**
@@ -52,6 +55,7 @@ public class ValidateEvent extends HttpServlet {
         
         if (allFilled) {
             eventDB.create(event);
+            request.setAttribute("message", "Event has been successfully created!");
             RequestDispatcher dispatcher = getServletContext().
                     getRequestDispatcher("/Success.jsp");
             dispatcher.forward(request, response);
@@ -162,6 +166,7 @@ public class ValidateEvent extends HttpServlet {
         } else {
             CustomHost host = hostBean.getHost(Integer.parseInt(hostId));
             if (host != null) {
+                host = hostDB.reattach(host);
                 event.setEventHost(host);
             } else {
                 allFilled = false;

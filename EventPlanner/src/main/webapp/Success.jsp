@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Action successful</title>
     </head>
     <body>
         <header>
@@ -20,7 +20,15 @@
             <p>by Andreas Bitzan and Moritz Withöft</p>
         </header>
         <main class="mainContainer">
-            <p>That was a success!</p>
+            <jsp:useBean id="message" class="java.lang.String" scope="request"/>
+            <c:choose>
+                <c:when test="${not empty message}">
+                    <p>${message}</p>
+                </c:when>
+                <c:otherwise>
+                    <p>That was a success!</p>
+                </c:otherwise>
+            </c:choose>
             <a href="/EventPlanner/">Go back</a>
         </main>
     </body>
