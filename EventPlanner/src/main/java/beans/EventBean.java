@@ -12,7 +12,7 @@ import tables.CustomEvent;
 
 /**
  *
- * @author Andreas Bitzan
+ * @author Andreas Bitzan, Moritz Withoeft
  */
 public class EventBean implements Serializable {
 

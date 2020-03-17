@@ -27,6 +27,7 @@
                 ${requestScope.message}
             </p>
         </c:if>
+        </header>
         <main class="mainContainer">
 
             <section class="hostList">

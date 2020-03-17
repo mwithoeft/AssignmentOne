@@ -63,8 +63,8 @@
 
             </section>
                 <section class="create">
-                    <a class="greenBtn" href='CreateEvent'>+ Create new event</a>
-                    <a class="greenBtn" href='HostList.jsp'>List of Hosts</a>
+                    <a class="greenBtn" href='<c:url value = "/CreateEvent"/>'>+ Create new event</a>
+                    <a class="greenBtn" href='<c:url value = "/HostList.jsp"/>'>List of Hosts</a>
                 </section>
        
 

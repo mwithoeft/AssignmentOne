@@ -7,7 +7,7 @@ import tables.CustomHost;
 
 /**
  *
- * @author Andreas Bitzan
+ * @author Andreas Bitzan, Moritz Withoeft
  */
 public class HostBean implements Serializable {
 

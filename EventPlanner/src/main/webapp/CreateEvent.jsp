@@ -25,13 +25,14 @@
         <jsp:useBean id="hosts" class="beans.HostBean" scope="session" />
          <header>
         <h1>Create New Event</h1>
-        </header>
-        <%-- Check if the eventbean has been instantiated by the jsp or the actual request, since useBean creates a bean if not given--%>
-         <c:if test="${currentevent.selfInitialized==true}" >
+        <c:if test="${currentevent.selfInitialized==true}" >
             <p class="notification">
                 Please fill out all fields!
             </p>
         </c:if>
+        </header>
+        <%-- Check if the eventbean has been instantiated by the jsp or the actual request, since useBean creates a bean if not given--%>
+
           <main class="mainContainer">
 
         <form class="createEventForm" action="ValidateEvent" method="POST">
