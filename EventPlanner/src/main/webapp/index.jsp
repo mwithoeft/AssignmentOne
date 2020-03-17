@@ -19,6 +19,7 @@
         <header>
         <h1>Event Planner</h1>
         <p>by Andreas Bitzan and Moritz Withöft</p>
+        <p>Do NOT view in Internet Explorer!</p>
         </header>
         <main>
             <h2 class="subheader">Upcoming events</h2>
@@ -34,7 +35,7 @@
                                 
                                
                                     <h3>${tmpEvent.eventname}</h3>
-                                    <p>${tmpEvent.getStartDate()}</p>
+                                    <p>${tmpEvent.displayStartTime()}</p>
                                     <p>${tmpEvent.getShortDescription()}</p>
                                     
                                 <div class="bottomBtns">

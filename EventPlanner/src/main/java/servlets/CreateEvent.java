@@ -30,7 +30,8 @@ public class CreateEvent extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        try{
+        
+        if(request.getParameter("id")!=null){
         int id=Integer.parseInt(request.getParameter("id"));
         HttpSession session= request.getSession();
         EventBean allEvents = (EventBean)session.getAttribute("events");
@@ -39,11 +40,12 @@ public class CreateEvent extends HttpServlet {
             request.setAttribute("currentevent", currentEvent);
         }
         }
-        finally{
+        
+  
         RequestDispatcher dispatcher = getServletContext().
             getRequestDispatcher("/CreateEvent.jsp");
          dispatcher.forward(request, response);
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

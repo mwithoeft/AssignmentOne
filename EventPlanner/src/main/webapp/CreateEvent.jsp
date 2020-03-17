@@ -19,46 +19,52 @@
         <title>Create new Event</title>
     </head>
     <body>
+        <jsp:useBean id="currentevent" class="tables.CustomEvent" scope="request"/>
+        <jsp:useBean id="hosts" class="beans.HostBean" scope="session" />
          <header>
         <h1>Create New Event</h1>
         </header>
+                <c:if test="${currentevent.selfInitialized==true}" >
+            <p class="notification">
+                Please fill out all fields!
+            </p>
+        </c:if>
           <main class="mainContainer">
-        <jsp:useBean id="currentevent" class="tables.CustomEvent" scope="request"/>
-        <jsp:useBean id="hosts" class="beans.HostBean" scope="session" />
+
+        <form class="createEventForm" action="ValidateEvent" method="POST">
         <c:choose>
             <c:when test="${not empty currentevent}">
-            <form action="ValidateEvent" method="POST">
-                  <p>
+                
+            
+                  <div>
                       <label for="eventname">Name of event</label>
                       <input type="text" name="eventname" value="${currentevent.eventname}"/>
-                  </p>
-                  <p>
+                  </div>
+                   <div>
                       <label for="shortdesc">Short description</label>
-                      <input type="text" name="shortdesc" value="${currentevent.shortDescription}"/>
-                  </p>
-                  <p>
+                      <textarea rows="4" cols="50" name="shortdesc" >${currentevent.shortDescription}</textarea>
+                  </div>
+                  <div>
                      <label for="longdesc">Long description</label>
-                     <textarea id="longdesc" rows="4" cols="50" name="longdesc">
-                       ${currentevent.longDescription}
-                     </textarea>
-                  </p>
-                  <p>
+                     <textarea id="longdesc" rows="4" cols="50" name="longdesc">${currentevent.longDescription}</textarea>
+                  </div>
+                  <div>
                       <label for="startdate">Start Date</label>
                       <input type="date" name="startdate" value="${currentevent.startDate}" />
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                       <label for="starttime">Start Time</label>
                       <input type="time" name="starttime" />
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                       <label for="enddate">End Date</label>
                       <input type="date" name="enddate" />
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                       <label for="endtime">End Time</label>
                       <input type="time" name="endtime" />
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                       <label for="eventhost">Host</label>
                       <select id="eventhost" name="eventhost" >
                       
@@ -74,46 +80,53 @@
                          </c:otherwise>
                          </c:choose>
                       </select>
-                         <a class="block" href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
-                  </p>
+                         <a href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
+                  </div>
+                  <div>
                   <input type="submit" value="Create" class="greenBtn submitBtn"/>
-                  <a class="redBtn greenBtn" href="<%= response.encodeURL("index.jsp") %>">Cancel</a>
-               </form>
+                  <a class="redBtn greenBtn" href="/EventPlanner/">Cancel</a>
+
+                  </div>
+                 
+                
+         
                 
             </c:when>
             <c:otherwise>
-                            <form action="ValidateEvent" method="POST">
-                  <p>
+           
+                <div>>
                       <label for="eventname">Name of event</label>
                       <input type="text" name="eventname" />
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                       <label for="shortdesc">Short description</label>
-                      <input type="text" name="shortdesc" />
-                  </p>
-                  <p>
+                      <textarea  rows="4" cols="50"  name="shortdesc" >
+                          
+                      </textarea>
+                  </div>
+                  <div>
                      <label for="longdesc">Long description</label>
                      <textarea id="longdesc" rows="4" cols="50" name="longdesc">
                     
                      </textarea>
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                       <label for="startdate">Start Date</label>
                       <input type="date" name="startdate"  />
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                       <label for="starttime">Start Time</label>
                       <input type="time" name="starttime" />
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                       <label for="enddate">End Date</label>
                       <input type="date" name="enddate" />
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                       <label for="endtime">End Time</label>
                       <input type="time" name="endtime" />
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                       <label for="eventhost">Host</label>
                       <select id="eventhost" name="eventhost" >
                          <c:choose>
@@ -127,13 +140,15 @@
                          </c:otherwise>
                          </c:choose>
                       </select>
-                         <a class="block" href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
-                  </p>
+                         <a href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
+                  </div>
+                  <div>
                   <input type="submit" value="Create" class="greenBtn submitBtn"/>
-                  <a class="redBtn greenBtn" href="<%= response.encodeURL("index.jsp") %>">Cancel</a>
-               </form>
+                  <a class="redBtn greenBtn" href="/EventPlanner/">Cancel</a>
+                  </div>
             </c:otherwise>
         </c:choose>
+        </form>
  
         </main>
     </body>

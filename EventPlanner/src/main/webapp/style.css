@@ -47,7 +47,7 @@ ul{
     color: black;
     border-radius: 5px;
 }
-.card h3{
+.card{
     text-align: center;
 }
 .bottomBtns{
@@ -125,7 +125,26 @@ label{
     justify-content: center;
 }
 
-.warning{
+.warning, .notification{
     color: white;
     text-align: center;
+}
+.notification{
+    background-color: #964b98; 
+    padding: 1rem;
+}
+
+.createEventForm{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.createEventForm div{
+    margin: 0.5rem;
+}
+.createEventForm div:first-child{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+input[type=submit]{
+    cursor: pointer;
 }

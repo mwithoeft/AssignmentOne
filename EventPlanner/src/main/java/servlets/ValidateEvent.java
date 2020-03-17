@@ -56,7 +56,7 @@ public class ValidateEvent extends HttpServlet {
                     getRequestDispatcher("/Success.jsp");
             dispatcher.forward(request, response);
         } else {
-            request.setAttribute("event", event);
+            request.setAttribute("currentevent", event);
             RequestDispatcher dispatcher = getServletContext().
                     getRequestDispatcher("/CreateEvent");
             dispatcher.forward(request, response);
