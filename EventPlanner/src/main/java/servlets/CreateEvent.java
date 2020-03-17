@@ -13,10 +13,11 @@ import tables.CustomEvent;
 
 /**
  *
- * @author hallo
+ * @author Andreas Bitzan, Moritz Withoeft
  */
 @WebServlet(name = "CreateEvent", urlPatterns = {"/CreateEvent"})
 public class CreateEvent extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,23 +30,21 @@ public class CreateEvent extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
-        if(request.getParameter("id")!=null){
-        int id=Integer.parseInt(request.getParameter("id"));
-        HttpSession session= request.getSession();
-        EventBean allEvents = (EventBean)session.getAttribute("events");
-        if(!allEvents.isEmpty()){
-            CustomEvent currentEvent=allEvents.getEvent(id);
-            request.setAttribute("currentevent", currentEvent);
+
+        if (request.getParameter("id") != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            HttpSession session = request.getSession();
+            EventBean allEvents = (EventBean) session.getAttribute("events");
+            if (!allEvents.isEmpty()) {
+                CustomEvent currentEvent = allEvents.getEvent(id);
+                request.setAttribute("currentevent", currentEvent);
+            }
         }
-        }
-        
-  
+
         RequestDispatcher dispatcher = getServletContext().
-            getRequestDispatcher("/CreateEvent.jsp");
-         dispatcher.forward(request, response);
-        
+                getRequestDispatcher("/CreateEvent.jsp");
+        dispatcher.forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

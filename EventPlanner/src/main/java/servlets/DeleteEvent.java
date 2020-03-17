@@ -7,7 +7,6 @@ package servlets;
 
 import beans.EventBean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,7 +20,7 @@ import tables.CustomEventDB;
 
 /**
  *
- * @author Andreas Bitzan
+ * @author Andreas Bitzan, Moritz Withoeft
  */
 @WebServlet(name = "DeleteEvent", urlPatterns = {"/DeleteEvent"})
 public class DeleteEvent extends HttpServlet {

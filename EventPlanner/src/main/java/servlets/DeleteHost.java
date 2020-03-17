@@ -21,7 +21,7 @@ import tables.CustomHostDB;
 
 /**
  *
- * @author hallo
+ * @author Andreas Bitzan, Moritz Withoeft
  */
 @WebServlet(name = "DeleteHost", urlPatterns = {"/DeleteHost"})
 public class DeleteHost extends HttpServlet {
@@ -34,6 +34,8 @@ public class DeleteHost extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
+     *
+     * Makes sure host can only be deleted if it doesn'T have any events.
      *
      * @param request servlet request
      * @param response servlet response

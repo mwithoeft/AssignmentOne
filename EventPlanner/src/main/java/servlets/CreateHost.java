@@ -10,10 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author hallo
+ * @author Andreas Bitzan, Moritz Withoeft
  */
 @WebServlet(name = "CreateHost", urlPatterns = {"/CreateHost"})
 public class CreateHost extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -28,8 +29,8 @@ public class CreateHost extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         RequestDispatcher dispatcher = getServletContext().
-            getRequestDispatcher("/CreateHost.jsp");
-         dispatcher.forward(request, response);
+                getRequestDispatcher("/CreateHost.jsp");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

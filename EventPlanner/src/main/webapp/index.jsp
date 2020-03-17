@@ -17,9 +17,9 @@
     </head>
     <body>
         <header>
-        <h1>Event Planner</h1>
-        <p>by Andreas Bitzan and Moritz Withöft</p>
-        <p>Do NOT view in Internet Explorer!</p>
+            <h1>Event Planner</h1>
+            <p>by Andreas Bitzan and Moritz Withöft</p>
+            <p>Do NOT view in Internet Explorer!</p>
         </header>
         <main>
             <h2 class="subheader">Upcoming events</h2>
@@ -28,48 +28,48 @@
                 <%-- Load the bean containing all events out of the current session (set in IndexServlet)--%>
                 <jsp:useBean id="events" class="beans.EventBean" scope="session"/>
                 <c:choose>
-                <%-- Check if there are events saved, otherwise display a message --%>
-                <c:when test="${events.isEmpty()==false}">
-                    
-                    <ul>
-                        <%-- Display every event in a "card" like manner --%>
-                        <c:forEach items="${events.getEventList()}" var="tmpEvent">
-                            <li class="card">
-                                
-                               
+                    <%-- Check if there are events saved, otherwise display a message --%>
+                    <c:when test="${events.isEmpty()==false}">
+
+                        <ul>
+                            <%-- Display every event in a "card" like manner --%>
+                            <c:forEach items="${events.getEventList()}" var="tmpEvent">
+                                <li class="card">
+
+
                                     <h3>${tmpEvent.eventname}</h3>
                                     <p>${tmpEvent.displayStartTime()}</p>
                                     <p>${tmpEvent.getShortDescription()}</p>
-                                    
-                                <div class="bottomBtns">
-                                <a href="<c:url value = "/ShowEvent?id=${tmpEvent.id}"/>">Show more</a>
-                                  <a href="<c:url value = "/CreateEvent?id=${tmpEvent.id}"/>">Edit</a>
-                                 <a href="<c:url value = "/DeleteEvent?id=${tmpEvent.id}"/>">Delete</a>
-                                </div>
-                          
-                            </li>
-                        </c:forEach>
-                    </ul>
-          
-   
-                </c:when>
-                <%-- The session bean was empty or not set --%>
-                <c:otherwise>
-                    <div><h3 class="warning">No events registered so far...</h3>
-        
-                    </div>
-                </c:otherwise>
+
+                                    <div class="bottomBtns">
+                                        <a href="<c:url value = "/ShowEvent?id=${tmpEvent.id}"/>">Show more</a>
+                                        <a href="<c:url value = "/CreateEvent?id=${tmpEvent.id}"/>">Edit</a>
+                                        <a href="<c:url value = "/DeleteEvent?id=${tmpEvent.id}"/>">Delete</a>
+                                    </div>
+
+                                </li>
+                            </c:forEach>
+                        </ul>
+
+
+                    </c:when>
+                    <%-- The session bean was empty or not set --%>
+                    <c:otherwise>
+                        <div><h3 class="warning">No events registered so far...</h3>
+
+                        </div>
+                    </c:otherwise>
                 </c:choose>
 
             </section>
-                <section class="create">
-                    <a class="greenBtn" href='<c:url value = "/CreateEvent"/>'>+ Create new event</a>
-                    <a class="greenBtn" href='<c:url value = "/HostList.jsp"/>'>List of Hosts</a>
-                </section>
-       
+            <section class="create">
+                <a class="greenBtn" href='<c:url value = "/CreateEvent"/>'>+ Create new event</a>
+                <a class="greenBtn" href='<c:url value = "/HostList.jsp"/>'>List of Hosts</a>
+            </section>
+
 
         </main>
-        
+
     </body>
 </html>
 

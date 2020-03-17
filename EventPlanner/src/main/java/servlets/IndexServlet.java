@@ -24,14 +24,16 @@ import tables.CustomHostDB;
 
 /**
  *
- * @author hallo
+ * @author Andreas Bitzan, Moritz Withoeft
  */
 @WebServlet(name = "IndexServlet", urlPatterns = {"/"})
 public class IndexServlet extends HttpServlet {
+
     @Inject
     private CustomEventDB eventDB;
     @Inject
     private CustomHostDB hostDB;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,23 +46,22 @@ public class IndexServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        List<CustomEvent>eventList=eventDB.findAll();
-        List<CustomHost>hostList=hostDB.findAll();
-        HostBean hostbean=new HostBean();
-        EventBean eventbean=new EventBean();
-        try{
-            HttpSession session= request.getSession(true);
+        List<CustomEvent> eventList = eventDB.findAll();
+        List<CustomHost> hostList = hostDB.findAll();
+        HostBean hostbean = new HostBean();
+        EventBean eventbean = new EventBean();
+        try {
+            HttpSession session = request.getSession(true);
             eventbean.setHostList(eventList);
             hostbean.setHostList(hostList);
             session.setAttribute("events", eventbean);
             session.setAttribute("hosts", hostbean);
-        }
-        catch(Exception ex){
-           
+        } catch (Exception ex) {
+
         }
         RequestDispatcher dispatcher = getServletContext().
-            getRequestDispatcher("/index.jsp");
-         dispatcher.forward(request, response);
+                getRequestDispatcher("/index.jsp");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

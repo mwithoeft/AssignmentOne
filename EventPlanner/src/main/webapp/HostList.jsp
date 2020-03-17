@@ -20,13 +20,13 @@
     </head>
     <body>
         <header>
-        <h1>Lists of all hosts</h1>
-        <%-- Just check if a message was set, no creating of a bean necessary --%>
-        <c:if test="${not empty requestScope.message}" >
-            <p class="notification">
-                ${requestScope.message}
-            </p>
-        </c:if>
+            <h1>Lists of all hosts</h1>
+            <%-- Just check if a message was set, no creating of a bean necessary --%>
+            <c:if test="${not empty requestScope.message}" >
+                <p class="notification">
+                    ${requestScope.message}
+                </p>
+            </c:if>
         </header>
         <main class="mainContainer">
 
@@ -41,26 +41,26 @@
                             <%-- Display every host in a list --%>
                             <c:forEach items="${hosts.getHostList()}" var="tmpHost">
                                 <li>                           
-                                   <p>${tmpHost}  <strong>${tmpHost.getLocation()} <a href="<c:url value = "/DeleteHost?id=${tmpHost.id}"/>">Delete</a></strong></p> 
-                                  
-                                   <hr>
-                                    
+                                    <p>${tmpHost}  <strong>${tmpHost.getLocation()} <a href="<c:url value = "/DeleteHost?id=${tmpHost.id}"/>">Delete</a></strong></p> 
+
+                                    <hr>
+
                                 </li>
                             </c:forEach>
                         </ul>
 
                     </c:when>
                     <c:otherwise>
-                    <div>
-                        <h3 class="warning">No hosts registered so far...</h3>
-                    </div>
+                        <div>
+                            <h3 class="warning">No hosts registered so far...</h3>
+                        </div>
                     </c:otherwise>
                 </c:choose>
 
             </section>
-            <a class="block" href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
+            <a class="block" href="<%= response.encodeURL("CreateHost")%>">Add new Host</a>
             <a class="block" href="/EventPlanner/">Go back</a>
         </main>
-        
+
     </body>
 </html>

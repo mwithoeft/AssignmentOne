@@ -1,6 +1,5 @@
 package servlets;
 
-import beans.HostBean;
 import java.io.IOException;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -13,15 +12,16 @@ import tables.CustomHost;
 import tables.CustomHostDB;
 
 /**
+ * Servlet to validate Host input
  *
- * @author hallo
+ * @author Andreas Bitzan, Moritz Withoeft
  */
 @WebServlet(name = "ValidateHost", urlPatterns = {"/ValidateHost"})
 public class ValidateHost extends HttpServlet {
 
-    @Inject 
+    @Inject
     private CustomHostDB hostDB;
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,11 +34,11 @@ public class ValidateHost extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-    
+
         CustomHost host = new CustomHost();
         host.setSelfInitialized(true);
         boolean allFilled = checkParameters(host, request);
-        
+
         if (allFilled) {
             hostDB.create(host);
             request.setAttribute("message", "Host has been successfully created!");
@@ -51,28 +51,35 @@ public class ValidateHost extends HttpServlet {
                     getRequestDispatcher("/CreateHost");
             dispatcher.forward(request, response);
         }
-        
+
     }
-    
+
+    /**
+     * Checks all the input fields for correctness.
+     *
+     * @param host Host instance to be filled with parameters
+     * @param request HTTP-Request
+     * @return Returns if all input fields are correctly filled
+     */
     private boolean checkParameters(CustomHost host, HttpServletRequest request) {
         boolean allFilled = true;
-        
+
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String location = request.getParameter("location");
-        
+
         if (!isNotFilled(firstname)) {
             host.setFirstname(firstname);
         } else {
             host.setFirstname("");
         }
-        
+
         if (!isNotFilled(lastname)) {
             host.setLastname(lastname);
         } else {
             host.setLastname("");
         }
-        
+
         /*Only location is mandatory*/
         if (isNotFilled(location)) {
             allFilled = false;
@@ -80,11 +87,11 @@ public class ValidateHost extends HttpServlet {
         } else {
             host.setLocation(location);
         }
-        
+
         return allFilled;
     }
-    
-        private boolean isNotFilled(String s) {
+
+    private boolean isNotFilled(String s) {
         return (s == null || s.equals(""));
     }
 

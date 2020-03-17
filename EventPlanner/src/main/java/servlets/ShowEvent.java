@@ -7,7 +7,6 @@ package servlets;
 
 import beans.EventBean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +18,7 @@ import tables.CustomEvent;
 
 /**
  *
- * @author Andreas Bitzan
+ * @author Andreas Bitzan, Moritz Withoeft
  */
 @WebServlet(name = "ShowEvent", urlPatterns = {"/ShowEvent"})
 public class ShowEvent extends HttpServlet {
@@ -36,23 +35,22 @@ public class ShowEvent extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id=request.getParameter("id");
-        int eventID=Integer.parseInt(id);
-        try{
-        HttpSession session= request.getSession();
-        EventBean allEvents = (EventBean)session.getAttribute("events");
-        if(!allEvents.isEmpty()){
-            CustomEvent currentEvent=allEvents.getEvent(eventID);
-            request.setAttribute("currentevent", currentEvent);
-        }
-        
-        }
-        catch (Exception ex){
-            
+        String id = request.getParameter("id");
+        int eventID = Integer.parseInt(id);
+        try {
+            HttpSession session = request.getSession();
+            EventBean allEvents = (EventBean) session.getAttribute("events");
+            if (!allEvents.isEmpty()) {
+                CustomEvent currentEvent = allEvents.getEvent(eventID);
+                request.setAttribute("currentevent", currentEvent);
+            }
+
+        } catch (Exception ex) {
+
         }
         RequestDispatcher dispatcher = getServletContext().
-            getRequestDispatcher("/ShowEvent.jsp");
-         dispatcher.forward(request, response);
+                getRequestDispatcher("/ShowEvent.jsp");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

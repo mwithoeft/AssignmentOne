@@ -209,10 +209,10 @@ public class CustomEvent implements Serializable {
             return "";
         }
     }
-    
+
     /**
      * Formats startTime for proper display on the Website.
-     * 
+     *
      * @return formatted String
      */
     public String displayStartTime() {
