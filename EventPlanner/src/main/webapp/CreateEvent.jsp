@@ -39,6 +39,8 @@
             <%-- If event was featured in request, use it to autofill the form --%>
             <c:when test="${not empty currentevent}">
                 
+               
+                    
                   <div>
                       <label for="eventname">Name of event</label>
                       <input type="text" name="eventname" value="${currentevent.eventname}"/>
@@ -52,7 +54,7 @@
                      <textarea id="longdesc" rows="4" cols="50" name="longdesc">${currentevent.longDescription}</textarea>
                   </div>
                   <div>
-                      <label for="startdate">Start Date ${currentevent.startDateString}</label>
+                      <label for="startdate">Start Date</label>
                       <input type="date" name="startdate" value="${currentevent.startDateString}" />
                   </div>
                   <div>
@@ -60,7 +62,7 @@
                       <input type="time" name="starttime" value="${currentevent.startTimeString}" />
                   </div>
                   <div>
-                      <label for="enddate">End Date ${currentevent.endDateString}</label>
+                      <label for="enddate">End Date</label>
                       <input type="date" name="enddate" value="${currentevent.endDateString}"/>
                   </div>
                   <div>
@@ -87,6 +89,7 @@
                          <a href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
                   </div>
                   <div>
+                  <input type="hidden" value="${currentevent.id}" name="eventid" >
                   <input type="submit" value="Create" class="greenBtn submitBtn"/>
                   <a class="redBtn greenBtn" href="/EventPlanner/">Cancel</a>
 
