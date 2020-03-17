@@ -61,7 +61,6 @@ public class DeleteHost extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().
                 getRequestDispatcher("/Success.jsp");
         dispatcher.forward(request, response);
-
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
