@@ -41,8 +41,10 @@
                             <%-- Display every host in a list --%>
                             <c:forEach items="${hosts.getHostList()}" var="tmpHost">
                                 <li>                           
-                                   <h3>${tmpHost}</h3>
-                                    <a href="<c:url value = "/DeleteHost?id=${tmpHost.id}"/>">Delete</a>
+                                   <p>${tmpHost},  <strong>${tmpHost.getLocation()} <a href="<c:url value = "/DeleteHost?id=${tmpHost.id}"/>">Delete</a></strong></p> 
+                                  
+                                   <hr>
+                                    
                                 </li>
                             </c:forEach>
                         </ul>
