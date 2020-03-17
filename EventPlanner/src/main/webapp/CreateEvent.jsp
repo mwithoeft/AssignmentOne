@@ -79,7 +79,7 @@
                          <c:choose>
                          <c:when test="${hosts.isEmpty()==false}">
                              <c:forEach items="${hosts.getHostList()}" var="host">
-                                  <option value="${host.getId()}">${host}</option>
+                                  <option value="${host.getId()}">${host} ${host.getLocation()}</option>
                                  </c:forEach>
                          </c:when>
                          <c:otherwise>
