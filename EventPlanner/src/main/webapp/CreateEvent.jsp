@@ -33,9 +33,8 @@
 
         <form class="createEventForm" action="ValidateEvent" method="POST">
         <c:choose>
-            <c:when test="${not empty currentevent}">
+            <c:when test="${currentevent.selfInitialized == true}">
                 
-            
                   <div>
                       <label for="eventname">Name of event</label>
                       <input type="text" name="eventname" value="${currentevent.eventname}"/>
@@ -49,20 +48,20 @@
                      <textarea id="longdesc" rows="4" cols="50" name="longdesc">${currentevent.longDescription}</textarea>
                   </div>
                   <div>
-                      <label for="startdate">Start Date</label>
-                      <input type="date" name="startdate" value="${currentevent.startDate}" />
+                      <label for="startdate">Start Date ${currentevent.startDateString}</label>
+                      <input type="date" name="startdate" value="${currentevent.startDateString}" />
                   </div>
                   <div>
                       <label for="starttime">Start Time</label>
-                      <input type="time" name="starttime" />
+                      <input type="time" name="starttime" value="${currentevent.startTimeString}" />
                   </div>
                   <div>
-                      <label for="enddate">End Date</label>
-                      <input type="date" name="enddate" />
+                      <label for="enddate">End Date ${currentevent.endDateString}</label>
+                      <input type="date" name="enddate" value="${currentevent.endDateString}"/>
                   </div>
                   <div>
                       <label for="endtime">End Time</label>
-                      <input type="time" name="endtime" />
+                      <input type="time" name="endtime" value="${currentevent.endTimeString}"/>
                   </div>
                   <div>
                       <label for="eventhost">Host</label>
@@ -94,7 +93,7 @@
             </c:when>
             <c:otherwise>
            
-                <div>>
+                <div>
                       <label for="eventname">Name of event</label>
                       <input type="text" name="eventname" />
                   </div>

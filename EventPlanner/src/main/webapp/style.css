@@ -124,6 +124,10 @@ label{
     display: flex;
     justify-content: center;
 }
+.create a{
+    margin: 0.5rem;
+    padding: 0.5rem;
+}
 
 .warning, .notification{
     color: white;
@@ -147,4 +151,16 @@ label{
 }
 input[type=submit]{
     cursor: pointer;
+}
+
+.hostList h3{
+    display: inline;
+}
+
+.hostList ul{
+    display: unset;
+    margin: unset;
+    list-style: circle;
+    padding: unset;
+    
 }
