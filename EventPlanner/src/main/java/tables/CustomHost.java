@@ -115,7 +115,7 @@ public class CustomHost implements Serializable {
 
     @Override
     public String toString() {
-        return this.firstname+ " "+this.lastname; //To change body of generated methods, choose Tools | Templates.
+        return this.firstname+ " "+this.lastname;
     }
     
     
