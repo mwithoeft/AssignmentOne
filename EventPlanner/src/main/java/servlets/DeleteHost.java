@@ -7,8 +7,7 @@ package servlets;
 
 import beans.HostBean;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,13 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import tables.CustomHost;
+import tables.CustomHostDB;
 
 /**
  *
  * @author hallo
  */
-@WebServlet(name = "HostList", urlPatterns = {"/HostList"})
-public class HostList extends HttpServlet {
+@WebServlet(name = "DeleteHost", urlPatterns = {"/DeleteHost"})
+public class DeleteHost extends HttpServlet {
+
+    @Inject
+    private CustomHostDB hostDB;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,12 +40,30 @@ public class HostList extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        String id = request.getParameter("id");
+        int hostID = Integer.parseInt(id);
+        try {
+            HttpSession session = request.getSession();
+            HostBean allhosts = (HostBean) session.getAttribute("hosts");
+            if (!allhosts.isEmpty()) {
+                CustomHost currentHost = allhosts.getHost(hostID);
+                if (currentHost.getHostedEvents().isEmpty()) {
+                    hostDB.delete(currentHost);
+                    request.setAttribute("message", "Event successfully deleted");
+                } else {
+                    request.setAttribute("message", "Event successfully deleted");
+                }
+            }
+        } catch (Exception ex) {
+            request.setAttribute("message", "Error! Event could not be deleted");
+        }
         RequestDispatcher dispatcher = getServletContext().
-            getRequestDispatcher("/HostList.jsp");
-         dispatcher.forward(request, response);
+                getRequestDispatcher("/Success.jsp");
+        dispatcher.forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

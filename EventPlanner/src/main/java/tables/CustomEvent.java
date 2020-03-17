@@ -27,7 +27,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "events")
 @NamedQueries({
-    @NamedQuery(name="CustomEvent.findAll", query="SELECT a FROM CustomEvent a")
+    @NamedQuery(name = "CustomEvent.findAll", query = "SELECT a FROM CustomEvent a")
 })
 public class CustomEvent implements Serializable {
 
@@ -38,40 +38,40 @@ public class CustomEvent implements Serializable {
 
     @Column
     private String eventname;
-    
+
     @Column
     @Temporal(TemporalType.DATE)
     private Date startDate;
-    
+
     @Column
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    
+
     @Column
     @Temporal(TemporalType.TIME)
     private Date startTime;
-    
+
     @Column
     @Temporal(TemporalType.TIME)
     private Date endTime;
-    
+
     @Column
     private String shortDescription;
-    
+
     @Column
     private String longDescription;
-    
+
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name ="host")
+    @JoinColumn(name = "host")
     private CustomHost eventHost;
-    
+
     @Transient
     private boolean selfInitialized;
-    
-    public CustomEvent(){
+
+    public CustomEvent() {
         this.selfInitialized = false;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -131,7 +131,8 @@ public class CustomEvent implements Serializable {
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
-    public String displayStartTime(){
+
+    public String displayStartTime() {
         Locale loc = new Locale("en", "US");
         DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, loc);
         return dateFormat.format(this.startDate);
@@ -160,31 +161,37 @@ public class CustomEvent implements Serializable {
     public boolean getSelfInitialized() {
         return this.selfInitialized;
     }
-    
-    public String getStartTimeString(){
-        return new SimpleDateFormat("HH:mm").format(startTime);
-    }
-    public String getEndTimeString(){
-        return new SimpleDateFormat("HH:mm").format(endTime);
-    }
-    public String getStartDateString(){
-        return new SimpleDateFormat("YYYY-MM-dd").format(startDate);
-    }
-    public String getEndDateString(){
-        return new SimpleDateFormat("YYYY-MM-dd").format(endDate);
+
+    public String getStartTimeString() {
+        if (startTime != null) {
+            return new SimpleDateFormat("HH:mm").format(startTime);
+        } else {
+            return "";
+        }
     }
 
-
-    @Override
-    public String toString(){
-        String eventString = String.format("\nEvent: %s\r\n", this.eventname);
-        eventString += String.format("%s\r\n", this.shortDescription);
-        eventString += String.format("Start date: %tD\n", this.startDate);
-        eventString += String.format("Start time: %s\n", new SimpleDateFormat("HH:mm").format(startTime));
-        eventString += String.format("End date: %tD\n", this.endDate);
-        eventString += String.format("End time: %s\n", new SimpleDateFormat("HH:mm").format(endTime));
-        
-        return eventString;
+    public String getEndTimeString() {
+        if (endTime != null) {
+            return new SimpleDateFormat("HH:mm").format(endTime);
+        } else {
+            return "";
+        }
     }
-    
+
+    public String getStartDateString() {
+        if (startDate != null) {
+            return new SimpleDateFormat("YYYY-MM-dd").format(startDate);
+        } else {
+            return "";
+        }
+    }
+
+    public String getEndDateString() {
+        if (endDate != null) {
+            return new SimpleDateFormat("YYYY-MM-dd").format(endDate);
+        } else {
+            return "";
+        }
+    }
+
 }

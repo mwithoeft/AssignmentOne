@@ -52,7 +52,6 @@ public class DeleteEvent extends HttpServlet {
             }
             request.setAttribute("message", "Event successfully deleted");
         } catch (Exception ex) {
-            ex.printStackTrace();
             request.setAttribute("message", "Event could not be deleted");
         }
         RequestDispatcher dispatcher = getServletContext().

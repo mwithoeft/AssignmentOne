@@ -159,8 +159,8 @@ input[type=submit]{
 
 .hostList ul{
     display: unset;
-    margin: unset;
-    list-style: circle;
+    margin: 1rem;
+   
     padding: unset;
     
 }
