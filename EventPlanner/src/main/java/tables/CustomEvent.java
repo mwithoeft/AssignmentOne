@@ -1,8 +1,10 @@
 package tables;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -206,6 +208,17 @@ public class CustomEvent implements Serializable {
         } else {
             return "";
         }
+    }
+    
+    /**
+     * Formats startTime for proper display on the Website.
+     * 
+     * @return formatted String
+     */
+    public String displayStartTime() {
+        Locale loc = new Locale("en", "US");
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, loc);
+        return dateFormat.format(this.startDate);
     }
 
 }
