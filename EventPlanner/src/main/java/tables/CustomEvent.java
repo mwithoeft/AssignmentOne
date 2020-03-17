@@ -160,6 +160,19 @@ public class CustomEvent implements Serializable {
     public boolean getSelfInitialized() {
         return this.selfInitialized;
     }
+    
+    public String getStartTimeString(){
+        return new SimpleDateFormat("HH:mm").format(startTime);
+    }
+    public String getEndTimeString(){
+        return new SimpleDateFormat("HH:mm").format(endTime);
+    }
+    public String getStartDateString(){
+        return new SimpleDateFormat("YYYY-MM-DD").format(startDate);
+    }
+    public String getEndDateString(){
+        return new SimpleDateFormat("YYYY-MM-DD").format(endDate);
+    }
 
 
     @Override
