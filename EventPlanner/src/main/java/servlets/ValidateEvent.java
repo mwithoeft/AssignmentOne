@@ -106,6 +106,7 @@ public class ValidateEvent extends HttpServlet {
         Date parsedStartDate = today;
         if (isNotFilled(startDate)) {
             allFilled = false;
+            event.setStartDate(null);
         } else {
             try {
                 parsedStartDate = dateParser.parse(startDate);
@@ -114,14 +115,17 @@ public class ValidateEvent extends HttpServlet {
                     event.setStartDate(parsedStartDate);
                 } else {
                     allFilled = false;
+                    event.setStartDate(null);
                 }
             } catch (ParseException ex) {
                 allFilled = false;
+                event.setStartDate(null);
             }
         }
         
         if (isNotFilled(endDate)) {
             allFilled = false;
+            event.setEndDate(null);
         } else {
             try {
                 Date parsedEndDate = dateParser.parse(endDate);
@@ -130,36 +134,43 @@ public class ValidateEvent extends HttpServlet {
                     event.setEndDate(parsedEndDate);
                 } else {
                     allFilled = false;
+                    event.setEndDate(null);
                 }
             } catch (ParseException ex) {
                 allFilled = false;
+                event.setEndDate(null);
             }
         }
         
         if (isNotFilled(startTime)) {
             allFilled = false;
+            event.setStartTime(null);
         } else {
             try {
                 Date parsedStartTime = new SimpleDateFormat("hh:mm:ss").parse(startTime + ":00");
                 event.setStartTime(parsedStartTime);
             } catch (ParseException ex) {
                 allFilled = false;
+                event.setStartTime(null);
             }
         }
         
         if (isNotFilled(endTime)) {
             allFilled = false;
+            event.setEndTime(null);
         } else {
             try {
                 Date parsedEndTime = new SimpleDateFormat("hh:mm:ss").parse(endTime + ":00");
                 event.setEndTime(parsedEndTime);
             } catch (ParseException ex) {
                 allFilled = false;
+                event.setEndTime(null);
             }
         }
         
         if (isNotFilled(hostId) || hostId.equals("nohost")) {
             allFilled = false;
+            event.setEventHost(null);
         } else {
             CustomHost host = hostDB.findById(Integer.parseInt(hostId));
             if (host != null) {
@@ -167,6 +178,7 @@ public class ValidateEvent extends HttpServlet {
                 event.setEventHost(host);
             } else {
                 allFilled = false;
+                event.setEventHost(null);
             }
         }
         return allFilled;
