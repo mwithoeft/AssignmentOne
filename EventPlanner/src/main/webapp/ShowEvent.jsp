@@ -32,7 +32,7 @@
                     <p>${currentevent.getLongDescription()}</p>
                     
                     <h3>When?</h3>
-                    <p>From ${currentevent.getStartDate()} to ${currentevent.getEndDate()}</p>
+                    <p>From ${currentevent.startTimeString} to ${currentevent.endTimeString}</p>
                       
                     <h3>Where?</h3>
                     <p>${currentevent.getEventHost().getLocation()}</p>
