@@ -5,6 +5,7 @@ import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
@@ -116,6 +117,19 @@ public class CustomEventDB {
      */
     public List<CustomEvent> findAll() {
         return em.createNamedQuery("CustomEvent.findAll", CustomEvent.class).getResultList();
+    }
+    
+        /**
+     * Searches for an event with a certain id.
+     *
+     * @param id ID of the entity to be searched
+     * @return Reference to event found or null
+     */
+    public CustomEvent findById(long id) {
+        Query q = em.createQuery("SELECT a FROM CustomEvent a WHERE a.id = :id");
+        q.setParameter("id", id);
+        q.setMaxResults(1);
+        return (CustomEvent) q.getSingleResult();
     }
 
     @PreDestroy
