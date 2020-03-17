@@ -5,8 +5,8 @@
  */
 package servlets;
 
-import beans.HostBean;
 import java.io.IOException;
+import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import tables.CustomEvent;
+import tables.CustomEventDB;
 import tables.CustomHost;
 import tables.CustomHostDB;
 
@@ -27,6 +28,8 @@ public class DeleteHost extends HttpServlet {
 
     @Inject
     private CustomHostDB hostDB;
+    @Inject
+    private CustomEventDB eventDB;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,30 +43,37 @@ public class DeleteHost extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         RequestDispatcher dispatcher = getServletContext().
-                    getRequestDispatcher("/Success.jsp");
+                getRequestDispatcher("/Success.jsp");
 
         String id = request.getParameter("id");
         int hostID = Integer.parseInt(id);
-        try {
-            HttpSession session = request.getSession();
-            HostBean allhosts = (HostBean) session.getAttribute("hosts");
-            if (!allhosts.isEmpty()) {
-                CustomHost currentHost = allhosts.getHost(hostID);
-                if (currentHost.getHostedEvents().isEmpty()) {
-                    hostDB.delete(currentHost);
-                    request.setAttribute("message", "Host successfully deleted");
-                } else {
-                    request.setAttribute("message", "Host can't be deleted since it is still hosting an event!");
-                    dispatcher = getServletContext().
-                            getRequestDispatcher("/HostList.jsp");
-                }
-            }
-        } catch (Exception ex) {
+
+        CustomHost host = hostDB.findById(hostID);
+        List<CustomEvent> events = eventDB.findAll();
+
+        if (host == null) {
             request.setAttribute("message", "Error! Host could not be deleted");
             dispatcher = getServletContext().
                     getRequestDispatcher("/HostList.jsp");
+        } else {
+            boolean canDelete = true;
+            for (CustomEvent e : events) {
+                if (e.getEventHost().getId() == hostID) {
+                    canDelete = false;
+                }
+            }
+            if (canDelete) {
+                hostDB.delete(host);
+                request.setAttribute("message", "Host has been successfully deleted!");
+                dispatcher = getServletContext().
+                        getRequestDispatcher("/Success.jsp");
+            } else {
+                request.setAttribute("message", "Host can't be deleted since it is still hosting an event!");
+                dispatcher = getServletContext().
+                        getRequestDispatcher("/HostList.jsp");
+            }
         }
 
         dispatcher.forward(request, response);
