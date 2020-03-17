@@ -56,7 +56,7 @@
                             <input type="text" name="location" />
                         </p>
                         <input type="submit" value="Create" class="greenBtn submitBtn"/>
-                        <a class="redBtn greenBtn" href="<%= response.encodeURL("CreateEvent")%>">Cancel</a>
+                        <a class="redBtn greenBtn" href="/EventPlanner/">Cancel</a>
                     </c:otherwise>
                 </c:choose>
         </main>
