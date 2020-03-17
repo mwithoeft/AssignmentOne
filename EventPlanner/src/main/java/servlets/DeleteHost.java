@@ -50,13 +50,13 @@ public class DeleteHost extends HttpServlet {
                 CustomHost currentHost = allhosts.getHost(hostID);
                 if (currentHost.getHostedEvents().isEmpty()) {
                     hostDB.delete(currentHost);
-                    request.setAttribute("message", "Event successfully deleted");
+                    request.setAttribute("message", "Host successfully deleted");
                 } else {
-                    request.setAttribute("message", "Event successfully deleted");
+                    request.setAttribute("message", "Host successfully deleted");
                 }
             }
         } catch (Exception ex) {
-            request.setAttribute("message", "Error! Event could not be deleted");
+            request.setAttribute("message", "Error! Host could not be deleted");
         }
         RequestDispatcher dispatcher = getServletContext().
                 getRequestDispatcher("/Success.jsp");
