@@ -162,16 +162,32 @@ public class CustomEvent implements Serializable {
     }
     
     public String getStartTimeString(){
-        return new SimpleDateFormat("HH:mm").format(startTime);
+        if (startTime != null) {
+            return new SimpleDateFormat("HH:mm").format(startTime);
+        } else {
+            return "";
+        }
     }
     public String getEndTimeString(){
-        return new SimpleDateFormat("HH:mm").format(endTime);
+        if(endTime != null) {
+            return new SimpleDateFormat("HH:mm").format(endTime);
+        } else {
+            return "";
+        }
     }
     public String getStartDateString(){
-        return new SimpleDateFormat("YYYY-MM-dd").format(startDate);
+        if (startDate != null) {
+            return new SimpleDateFormat("YYYY-MM-dd").format(startDate);
+        } else {
+            return "";
+        }
     }
     public String getEndDateString(){
-        return new SimpleDateFormat("YYYY-MM-dd").format(endDate);
+        if (endDate != null) {
+            return new SimpleDateFormat("YYYY-MM-dd").format(endDate);  
+        } else {
+            return "";
+        }
     }
     
     
