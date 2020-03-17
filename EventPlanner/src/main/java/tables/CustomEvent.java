@@ -168,10 +168,10 @@ public class CustomEvent implements Serializable {
         return new SimpleDateFormat("HH:mm").format(endTime);
     }
     public String getStartDateString(){
-        return new SimpleDateFormat("YYYY-MM-DD").format(startDate);
+        return new SimpleDateFormat("YYYY-MM-dd").format(startDate);
     }
     public String getEndDateString(){
-        return new SimpleDateFormat("YYYY-MM-DD").format(endDate);
+        return new SimpleDateFormat("YYYY-MM-dd").format(endDate);
     }
 
 
