@@ -1,7 +1,7 @@
 <%-- 
     Document   : ShowEvent
     Created on : 11.03.2020, 11:41:02
-    Author     : Andreas Bitzan
+    Author     : Andreas Bitzan, Moritz Withoeft
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,38 +16,40 @@
         <title>The Event</title>
     </head>
     <body>
-              <jsp:useBean id="currentevent" class="tables.CustomEvent" scope="request"/>
-              <c:choose>
-                <c:when test="${not empty currentevent}">
-                        <h1>${currentevent.getEventname()}</h1>
+        <%-- Get the event that should be displayed out of the request bean --%>
+        <jsp:useBean id="currentevent" class="tables.CustomEvent" scope="request"/>
+        
+        <c:choose>
+            <%-- Check if the event has content or if the bean was initialized with an empty body --%>
+            <c:when test="${not empty currentevent}">
+                    <h1>${currentevent.getEventname()}</h1>
+            </c:when>
+        </c:choose>
+                    
+        <main class="mainContainer">
+            <c:choose>
+              <%-- Check if bean actually contains content --%>
+              <c:when test="${not empty currentevent}">
 
-                </c:when>
+                  <h3>What?</h3>
+                  <p>${currentevent.getLongDescription()}</p>
 
-              </c:choose>
-            <main class="mainContainer">
-              <c:choose>
-                <c:when test="${not empty currentevent}">
-                      
-                    <h3>What?</h3>
-                    <p>${currentevent.getLongDescription()}</p>
-                    
-                    <h3>When?</h3>
-                    <p>From ${currentevent.startTimeString} to ${currentevent.endTimeString}</p>
-                      
-                    <h3>Where?</h3>
-                    <p>${currentevent.getEventHost().getLocation()}</p>
-                    
-                    <h3>Who is the host?</h3>
-                    <p>${currentevent.getEventHost().getFirstname()} ${currentevent.getEventHost().getLastname()} (Has hosted ${currentevent.getEventHost().eventsHosted} events so far)</p>
-                </c:when>
-                <c:otherwise>
-                    <p>The correct bean was not found...</p>
-                </c:otherwise>
-              </c:choose>
-                    
-                    <a href="/EventPlanner/">Go back</a>
+                  <h3>When?</h3>
+                  <p>From ${currentevent.startTimeString} to ${currentevent.endTimeString}</p>
+
+                  <h3>Where?</h3>
+                  <p>${currentevent.getEventHost().getLocation()}</p>
+
+                  <h3>Who is the host?</h3>
+                  <p>${currentevent.getEventHost().getFirstname()} ${currentevent.getEventHost().getLastname()} (Has hosted ${currentevent.getEventHost().eventsHosted} events so far)</p>
+              </c:when>
+              <c:otherwise>
+                  <p>The correct bean was not found...</p>
+              </c:otherwise>
+            </c:choose>
+
+            <a href="/EventPlanner/">Go back</a>
         </main>
-        
-        
+
     </body>
 </html>

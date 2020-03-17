@@ -1,7 +1,7 @@
 <%-- 
     Document   : HostList
     Created on : 17/03/2020, 1:57:39 PM
-    Author     : hallo
+    Author     : Andreas Bitzan, Moritz Withoeft
 --%>
 
 <%@page import="beans.HostBean"%>
@@ -21,6 +21,7 @@
     <body>
         <header>
         <h1>Lists of all hosts</h1>
+        <%-- Just check if a message was set, no creating of a bean necessary --%>
         <c:if test="${not empty requestScope.message}" >
             <p class="notification">
                 ${requestScope.message}
@@ -29,33 +30,31 @@
         <main class="mainContainer">
 
             <section class="hostList">
+                <%-- Get all the hosts out of the session, was set in IndexServlet --%>
                 <jsp:useBean id="hosts" class="beans.HostBean" scope="session"/>
                 <c:choose>
-                <c:when test="${hosts.isEmpty()==false}">
-                    
-                    <ul>
-                        <c:forEach items="${hosts.getHostList()}" var="tmpHost">
-                            <li>
-                                
-                               
-                               <h3>${tmpHost}</h3>
-                                 <a href="<c:url value = "/DeleteHost?id=${tmpHost.id}"/>">Delete</a>
-                            </li>
-                        </c:forEach>
-                    </ul>
-          
-   
-                </c:when>
-                <c:otherwise>
+                    <%-- Check if there are actually hosts inside the session bean --%>
+                    <c:when test="${hosts.isEmpty()==false}">
+
+                        <ul>
+                            <%-- Display every host in a list --%>
+                            <c:forEach items="${hosts.getHostList()}" var="tmpHost">
+                                <li>                           
+                                   <h3>${tmpHost}</h3>
+                                    <a href="<c:url value = "/DeleteHost?id=${tmpHost.id}"/>">Delete</a>
+                                </li>
+                            </c:forEach>
+                        </ul>
+
+                    </c:when>
+                    <c:otherwise>
                     <div>
                         <h3 class="warning">No hosts registered so far...</h3>
-   
                     </div>
-                </c:otherwise>
+                    </c:otherwise>
                 </c:choose>
 
             </section>
-       
             <a href="/EventPlanner/">Go back</a>
         </main>
         

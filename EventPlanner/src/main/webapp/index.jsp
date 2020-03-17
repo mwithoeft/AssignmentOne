@@ -3,7 +3,7 @@
     Created on : 10.03.2020, 18:43:29
     Author     : Andreas Bitzan
 --%>
-
+<%-- Including the necessary headers--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -25,11 +25,14 @@
             <h2 class="subheader">Upcoming events</h2>
 
             <section class="eventSection">
+                <%-- Load the bean containing all events out of the current session (set in IndexServlet)--%>
                 <jsp:useBean id="events" class="beans.EventBean" scope="session"/>
                 <c:choose>
+                <%-- Check if there are events saved, otherwise display a message --%>
                 <c:when test="${events.isEmpty()==false}">
                     
                     <ul>
+                        <%-- Display every event in a "card" like manner --%>
                         <c:forEach items="${events.getEventList()}" var="tmpEvent">
                             <li class="card">
                                 
@@ -50,6 +53,7 @@
           
    
                 </c:when>
+                <%-- The session bean was empty or not set --%>
                 <c:otherwise>
                     <div><h3 class="warning">No events registered so far...</h3>
         

@@ -1,7 +1,7 @@
 <%-- 
     Document   : DeleteEvent
     Created on : 15.03.2020, 15:28:38
-    Author     : Andreas Bitzan
+    Author     : Andreas Bitzan, Moritz Withoeft
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Action successful</title>
+        <title>Action message</title>
     </head>
     <body>
         <header>
@@ -20,6 +20,7 @@
             <p>by Andreas Bitzan and Moritz Withöft</p>
         </header>
         <main class="mainContainer">
+            <%-- Use message bean to see ig there was a message--%>
             <jsp:useBean id="message" class="java.lang.String" scope="request"/>
             <c:choose>
                 <c:when test="${not empty message}">

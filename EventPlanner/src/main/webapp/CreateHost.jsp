@@ -1,7 +1,7 @@
 <%-- 
     Document   : CreateEvent
     Created on : 10.03.2020, 19:25:39
-    Author     : Andreas Bitzan
+    Author     : Andreas Bitzan, Moritz Withoeft
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

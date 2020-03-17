@@ -1,7 +1,7 @@
 <%-- 
     Document   : CreateEvent
     Created on : 10.03.2020, 19:25:39
-    Author     : Andreas Bitzan
+    Author     : Andreas Bitzan, Moritz Withoeft
 --%>
 
 <%@page import="beans.HostBean"%>
@@ -19,12 +19,15 @@
         <title>Create new Event</title>
     </head>
     <body>
+        <%-- Check if a new event should be created, or if an event should be edited, depends if request bean contains an event --%>
         <jsp:useBean id="currentevent" class="tables.CustomEvent" scope="request"/>
+        <%-- Get all hosts out of the session, bean was set in IndexServlet --%>
         <jsp:useBean id="hosts" class="beans.HostBean" scope="session" />
          <header>
         <h1>Create New Event</h1>
         </header>
-                <c:if test="${currentevent.selfInitialized==true}" >
+        <%-- Check if the eventbean has been instantiated by the jsp or the actual request, since useBean creates a bean if not given--%>
+         <c:if test="${currentevent.selfInitialized==true}" >
             <p class="notification">
                 Please fill out all fields!
             </p>
@@ -33,6 +36,7 @@
 
         <form class="createEventForm" action="ValidateEvent" method="POST">
         <c:choose>
+            <%-- If event was featured in request, use it to autofill the form --%>
             <c:when test="${currentevent.selfInitialized == true}">
                 
                   <div>
@@ -65,6 +69,7 @@
                   </div>
                   <div>
                       <label for="eventhost">Host</label>
+                      <%-- Display every host in a dropdown --%>
                       <select id="eventhost" name="eventhost" >
                       
                           ${hosts.hostList}
@@ -92,7 +97,7 @@
                 
             </c:when>
             <c:otherwise>
-           
+           <%-- No bean with an editable event was found, display empty fields --%>
                 <div>
                       <label for="eventname">Name of event</label>
                       <input type="text" name="eventname" />
