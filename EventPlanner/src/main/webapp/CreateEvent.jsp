@@ -39,9 +39,6 @@
                 <c:choose>
                     <%-- If event was featured in request, use it to autofill the form --%>
                     <c:when test="${not empty currentevent}">
-
-
-
                         <div>
                             <label for="eventname">Name of event</label>
                             <input type="text" name="eventname" value="${currentevent.eventname}"/>
@@ -79,7 +76,7 @@
                                 <c:choose>
                                     <c:when test="${hosts.isEmpty()==false}">
                                         <c:forEach items="${hosts.getHostList()}" var="host">
-                                            <option value="${host.getId()}">${host}</option>
+                                            <option value="${host.getId()}">${host} ${host.getLocation()}</option>
                                         </c:forEach>
                                     </c:when>
                                     <c:otherwise>
@@ -95,10 +92,6 @@
                             <a class="redBtn greenBtn" href="/EventPlanner/">Cancel</a>
 
                         </div>
-
-
-
-
                     </c:when>
                     <c:otherwise>
                         <%-- No bean with an editable event was found, display empty fields --%>
