@@ -56,7 +56,8 @@
                 </c:choose>
 
             </section>
-            <a href="/EventPlanner/">Go back</a>
+            <a class="block" href="<%= response.encodeURL("CreateHost") %>">Add new Host</a>
+            <a class="block" href="/EventPlanner/">Go back</a>
         </main>
         
     </body>
