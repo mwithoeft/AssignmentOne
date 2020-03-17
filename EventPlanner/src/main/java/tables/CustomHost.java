@@ -21,7 +21,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "hosts")
 @NamedQueries({
-    @NamedQuery(name="CustomHost.findAll", query="SELECT a FROM CustomHost a"),
+    @NamedQuery(name="CustomHost.findAll", query="SELECT a FROM CustomHost a")
 })
 public class CustomHost implements Serializable {
 
@@ -44,7 +44,7 @@ public class CustomHost implements Serializable {
     
     @OneToMany(
             mappedBy = "eventHost",
-            cascade = CascadeType.ALL
+            cascade = CascadeType.MERGE
     )
     private Set<CustomEvent> hostedEvents;
     

@@ -61,7 +61,7 @@ public class CustomEvent implements Serializable {
     @Column
     private String longDescription;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name ="host")
     private CustomHost eventHost;
     

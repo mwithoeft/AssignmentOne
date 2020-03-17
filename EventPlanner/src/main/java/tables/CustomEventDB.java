@@ -74,6 +74,9 @@ public class CustomEventDB {
         } catch (NotSupportedException | SystemException ex) {
             System.err.println("Error starting the transaction: " + ex);
         }
+        if (!em.contains(event)) {
+            event = em.merge(event);
+        }
         em.remove(event);
         try {
             this.utx.commit();

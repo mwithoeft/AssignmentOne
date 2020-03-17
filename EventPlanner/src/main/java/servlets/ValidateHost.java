@@ -41,6 +41,7 @@ public class ValidateHost extends HttpServlet {
         
         if (allFilled) {
             hostDB.create(host);
+            request.setAttribute("message", "Host has been successfully created!");
             RequestDispatcher dispatcher = getServletContext().
                     getRequestDispatcher("/Success.jsp");
             dispatcher.forward(request, response);
