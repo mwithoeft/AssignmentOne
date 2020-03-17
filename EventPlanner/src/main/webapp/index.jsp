@@ -38,7 +38,7 @@
                                 
                                
                                     <h3>${tmpEvent.eventname}</h3>
-                                    <p>${tmpEvent.getStartDateString()}</p>
+                                    <p>${tmpEvent.displayStartTime()}</p>
                                     <p>${tmpEvent.getShortDescription()}</p>
                                     
                                 <div class="bottomBtns">
