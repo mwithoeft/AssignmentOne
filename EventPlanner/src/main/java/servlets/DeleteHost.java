@@ -40,6 +40,9 @@ public class DeleteHost extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        RequestDispatcher dispatcher = getServletContext().
+                    getRequestDispatcher("/Success.jsp");
 
         String id = request.getParameter("id");
         int hostID = Integer.parseInt(id);
@@ -53,13 +56,16 @@ public class DeleteHost extends HttpServlet {
                     request.setAttribute("message", "Host successfully deleted");
                 } else {
                     request.setAttribute("message", "Host can't be deleted since it is still hosting an event!");
+                    dispatcher = getServletContext().
+                            getRequestDispatcher("/HostList.jsp");
                 }
             }
         } catch (Exception ex) {
             request.setAttribute("message", "Error! Host could not be deleted");
+            dispatcher = getServletContext().
+                    getRequestDispatcher("/HostList.jsp");
         }
-        RequestDispatcher dispatcher = getServletContext().
-                getRequestDispatcher("/Success.jsp");
+
         dispatcher.forward(request, response);
     }
 
