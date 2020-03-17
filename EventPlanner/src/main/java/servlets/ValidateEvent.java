@@ -47,12 +47,23 @@ public class ValidateEvent extends HttpServlet {
         HttpSession session = request.getSession();
         HostBean hostBean = (HostBean) session.getAttribute("hosts");
         
-        CustomEvent event = new CustomEvent();
+        
+        CustomEvent event;
+        String eventId = request.getParameter("eventid");
+        if (isNotFilled(eventId)) {
+            event = new CustomEvent();          
+        } else {
+            event = eventDB.findById(Long.parseLong(eventId));
+            if (event == null) {
+                event = new CustomEvent();
+            }
+        }
+        
         event.setSelfInitialized(true);
         boolean allFilled = checkParameters(event, request, hostBean);
         
         if (allFilled) {
-            eventDB.create(event);
+            eventDB.update(event);
             request.setAttribute("message", "Event has been successfully created!");
             RequestDispatcher dispatcher = getServletContext().
                     getRequestDispatcher("/Success.jsp");
